@@ -14,27 +14,40 @@ go build -o plugin.exe
 ```
 
 ### how to use 
-Open a terminal (command prompt) from the directory containing an executable 
-(constdp[.exe] for 64bit, constdp_32bit[.exe] for 32bit systems). 
-Simplification options are made available through  the use of a [TOML][0] file (config.toml).
-Execute `constdp` with the following command :
-
+Open a command execute plugin[.exe] passing in a json string of configuration.
+Make sure to properly escape input JSON. For example:
 ```bash
-./constdp -c ./config.toml 
+./plugin.exe "{\"a\": \"C:\\path\\to\\input.shp\", \"b\": 299.434}"
 ```
 
-If a `-c` option is not provided at the terminal e.g. `./constdp`, it assumes `./config.toml` 
-as the default configuration file. Change `config.toml` to configure your simplification. 
+#### JSON input fields
 
-#### config file 
-
+```json
+{
+  "input": "/path/to/input.[shp]",
+  "output": "/path/to/output.shp",
+  "constraints": "/path/to/file.[shp]",
+  "simplificationType": "DP",
+  "threshold": 0.0,
+  "minDist": 0.0,
+  "relaxDist": 0.0,
+  "isFeatureClass": false,
+  "planarSelf": false,
+  "nonPlanarSelf": false,
+  "avoid_new_self_intersects": false,
+  "geom_relation": false,
+  "dist_relation": false,
+  "side_relation" : false
+}
+```
+Json input field descriptions:
 ```toml
 # input file is required
-Input                  = "/path/to/input.[wkt]" 
+Input                  = "/path/to/input.[shp]" 
 # output is optional, defaults to ./out.txt
-Output                 = "" 
+Output                 = "/path/to/output.shp" 
 # this is optional
-Constraints            = "/path/to/file.[wkt]" 
+Constraints            = "/path/to/file.[shp]" 
 # type of simplification, options : DP, SED
 SimplificationType     = "DP"
 # simplification threshold (in metric units as input geometric coordinates) 
