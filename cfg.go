@@ -1,11 +1,8 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"github.com/intdxdt/fileutil"
-	"github.com/naoina/toml"
-	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -37,23 +34,12 @@ func (opt Cfg) String() string {
 	return string(cfgbytes)
 }
 
-func readConfig() Cfg {
-	f, err := os.Open(ConfigPath)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	defer f.Close()
-
-	buf, err := ioutil.ReadAll(f)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	buf = bytes.Replace(buf, []byte(`\`), []byte(`/`), -1)
+func parseInputJSON(input string) Cfg {
 	var config = Cfg{}
-	if err := toml.Unmarshal(buf, &config); err != nil {
+	if err := json.Unmarshal([]byte(input), &config); err != nil {
+		log.Println("Invalid input:")
 		log.Fatalln(err)
 	}
-
 	if !fileutil.IsFile(config.Input) {
 		log.Println("input file not found")
 		usageHelp()

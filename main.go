@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/TopoSimplify/opts"
 	"github.com/intdxdt/geom"
@@ -15,29 +14,19 @@ import (
 	"time"
 )
 
-var Output = "./out.txt"
-var ConfigPath string
 var wktPoint = []byte("point")
 var wktPolygon = []byte("polygon")
 var wktLinestring = []byte("linestring")
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	var err error
+
 	var args = os.Args[1:]
 	if len(args) == 0 {
 		log.Fatalln("Input File Not Provided !")
 	}
-	var Input = strings.TrimSpace(strings.Join(args, " "))
-	fmt.Println(Input)
-	var input map[string]interface{}
-	err = json.Unmarshal([]byte(Input), &input)
-	if err != nil {
-		panic(err)
-	}
-	os.Exit(0)
-
-	var cfg = readConfig()
+	var input = strings.TrimSpace(strings.Join(args, " "))
+	var cfg = parseInputJSON(input)
 	var options = optsFromCfg(cfg)
 	var constraints []geom.Geometry
 	var simpleCoords []geom.Coords
@@ -46,59 +35,34 @@ func main() {
 	cfg.SimplificationType = strings.ToLower(strings.TrimSpace(cfg.SimplificationType))
 	var offsetFn = offsetDictionary[cfg.SimplificationType]
 	if offsetFn == nil {
-		log.Println(`Supported Simplification Types : "DP" or "SED", Fix config.toml file`)
+		log.Println(`Supported Simplification Types : "DP" or "SED", Fix JSON input`)
 		os.Exit(1)
 	}
 
-	var keyIndx []string
+	var err error
 	var polyCoords []geom.Coords
-
-	if isWKTFile(cfg.Input) {
+	if isShapeFile(cfg.Input) {
 		polyCoords, err = readWKTInput(cfg.Input)
 		if err != io.EOF {
 			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", cfg.Input, err))
 			os.Exit(1)
 		}
-		//for i := range polyCoords {
-		//	keyIndx = append(keyIndx, KeyIndx{i, i})
-		//}
-	} else if isTomlFile(cfg.Input) {
-		err = readTomlInput(cfg.Input, func(data map[string]geom.Coords) {
-			var i = 0
-			for key, coords := range data {
-				keyIndx = append(keyIndx, key)
-				polyCoords = append(polyCoords, coords)
-				i++
-			}
-		})
-		if err != nil {
-			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", cfg.Input, err))
-			os.Exit(1)
-		}
 	} else {
-		panic("unknown file type, expects wkt/txt or toml")
+		panic("unknown file type, expects a shapefile: /path/to/name.shp")
 	}
 
 	// config output
 	cfg.Output = strings.TrimSpace(cfg.Output)
 	if cfg.Output == "" {
-		cfg.Output = Output
+		panic("output path shapefile (*.shp) path required !")
 	}
 
 	// read constraints
 	cfg.Constraints = strings.TrimSpace(cfg.Constraints)
 
-	if cfg.Constraints != "" && isWKTFile(cfg.Constraints) {
+	if cfg.Constraints != "" && isShapeFile(cfg.Constraints) {
 		constraints, err = readConstraints(cfg.Constraints)
 		if err != io.EOF {
-			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", cfg.Constraints, err))
-			os.Exit(1)
-		}
-	} else if cfg.Constraints != "" && isTomlFile(cfg.Constraints) {
-		err = readTomlConstraints(cfg.Constraints, func(data ConstToml) {
-			constraints = data.Geometries()
-		})
-		if err != nil {
 			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", cfg.Constraints, err))
 			os.Exit(1)
 		}
@@ -118,7 +82,7 @@ func main() {
 
 	var saved bool
 	//Save output
-	if isWKTFile(cfg.Input) {
+	if isShapeFile(cfg.Input) {
 		switch cfg.SimplificationType {
 		case "dp":
 			err = writeCoords(cfg.Output, simpleCoords, geom.WriteWKT)
@@ -129,33 +93,8 @@ func main() {
 			panic(err)
 		}
 		saved = true
-	} else if isTomlFile(cfg.Input) {
-		var coordinates [][][]float64
-		var outputDict = make(map[string][][]float64, len(simpleCoords))
-		var fn = func(dim int) {
-			for i, simple := range simpleCoords {
-				var ln [][]float64
-				for _, idx := range simple.Idxs {
-					ln = append(ln, simple.Pnts[idx][:dim])
-				}
-				coordinates = append(coordinates, ln)
-				outputDict[keyIndx[i]] = ln
-			}
-		}
-
-		switch cfg.SimplificationType {
-		case "dp":
-			fn(2)
-		case "sed":
-			fn(3)
-		}
-
-		if err = writeTomlCoords(cfg.Output, outputDict); err != nil {
-			panic(err)
-		}
-		saved = true
 	} else {
-		panic("unknown file type, expects wkt/txt or toml")
+		panic("unknown file type, expects output as shapefile: /path/to/name.shp")
 	}
 	if saved {
 		log.Println("simplification save to file :", cfg.Output)
@@ -175,11 +114,6 @@ func optsFromCfg(cfg Cfg) opts.Opts {
 	}
 }
 
-func isTomlFile(fname string) bool {
-	return strings.ToLower(filepath.Ext(fname)) == ".toml"
-}
-
-func isWKTFile(fname string) bool {
-	var ext = strings.ToLower(filepath.Ext(fname))
-	return ext == ".wkt" || ext == ".txt"
+func isShapeFile(filename string) bool {
+	return strings.ToLower(filepath.Ext(filename)) == ".shp"
 }
