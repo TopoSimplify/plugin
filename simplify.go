@@ -23,8 +23,10 @@ func simplifyInstances(lns []geom.Coords, opts *opts.Opts, constraints []geom.Ge
 	return extractSimpleSegs(forest)
 }
 
-func simplifyFeatureClass(lns []geom.Coords, opts *opts.Opts, constraints []geom.Geometry,
-	offsetFn func(geom.Coords) (int, float64)) []geom.Coords {
+func simplifyFeatureClass(
+	lns []geom.Coords, opts *opts.Opts, constraints []geom.Geometry,
+	offsetFn func(geom.Coords) (int, float64),
+) []geom.Coords {
 	var id = iter.NewIgen()
 	var forest []*constdp.ConstDP
 	for _, ln := range lns {
