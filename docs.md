@@ -1,35 +1,47 @@
 # Introduction 
 
-For many applications in spatial and spatio-temporal GIS, it is beneficial to collect data once the highest possible 
-resolution as a master database. Simplification can be used as a tool to derive data at a coarser resolution from the 
-master database for other applications.  Simplification can also be used  as a pre-processing tool before data mining, 
-visualization, data transmission, and data exploration.
+For many applications in spatial and spatio-temporal GIS, it is beneficial 
+to collect data once the highest possible resolution as a master database. 
+Simplification can be used as a tool to derive data at a coarser resolution 
+from the master database for other applications.  Simplification can also be 
+used  as a pre-processing tool before data mining, visualization, data 
+transmission, and data exploration.
 
-Line simplification is the process of deforming the shape of a geometry by removing excessive detail. There are two methods
+Line simplification is the process of deforming the shape of a geometry by 
+removing excessive detail. There are two methods
  - Line smoothing (curve fitting) 
  - Vertex reduction
 
-Either method, based on some criteria, may produce a simplification that has much less detail compared
-to the original polyline. If topologically constrained, the simplification will result in an output that maintains some
-topological consistency with the original input.
+Either method, based on some criteria, may produce a simplification that has 
+much less detail compared to the original polyline. If topologically constrained, 
+the simplification will result in an output that maintains some topological 
+consistency with the original input.
 
-Unconstrained simplification can lead to various Topological errors in the output geometry.
-In circumstances where the input geometric has spatial relationships with other features in the same layer or other layers, 
-the spatial context under which the linear feature to be simplified needs consideration. 
-Out of context simplification can lead to change in contextual representation and meaning - simplification may be internally 
-topologically consistent but spatially invalid relative to other features that constrain its shape. 
+Unconstrained simplification can lead to various topological errors in the output 
+geometry. In circumstances where the input geometry has spatial relationships with 
+other features in the same layer or other layers, the spatial context under which 
+the linear feature to be simplified needs consideration. 
+Out of context simplification can lead to change in contextual representation and 
+meaning - simplified geometry may be self topologically consistent but spatially 
+invalid relative to other features that constrain its shape. 
 
-The goal of this plugin is to support topological and contextual simplification of linear features. 
+The goal of this plugin is to support contextual simplification linear features
+and spatio-temporal trajectories. 
 
 
 
 # Input parameters 
+All input features (lines and constraints) are expected to be in the same projected
+coordinate system. 
+<img src="imgs/input.jpg" width="40%" style="padding: 10px;"/>
+
 
 ## Linear Feature Class
-Input linear features are expected to be in projected coordinates. In 2D Douglas-Peucker simplification,
-Linear features in the input feature class are expected to be X, Y coordinates. 
-In a spatio-temporal simplification, input features should be XYZ or XYM, where Z or M component represents  time. 
-Spatio-temporal simplification uses synchronised euclidean distance algorithm ([SED](http://bit.ly/2xTRcVs)).
+In Douglas-Peucker simplification, linear features in the input feature class are 
+expected to be `X,Y` coordinates. In a spatio-temporal simplification, input features 
+should be `X,Y,Z` or `X,Y,M`, where `Z` or `M` component represents time. 
+Spatio-temporal simplification uses synchronised euclidean distance algorithm 
+([SED](http://bit.ly/2xTRcVs)).
 
 ## Input Constraints Feature Class
 The optional constraints layer can be points, lines or polygons geometries. 
@@ -46,7 +58,7 @@ In spatio-temporal trajectories, depending on the type of data, linear features 
 overlap in space but are separated in time, the spatial relations between unique 
 trajectories might not be relevant.
 
-<img src="imgs/img-heuristic-1.png" width="40%" style="padding: 10px;"/>
+<img src="imgs/distance-relation.png" width="40%" style="padding: 10px;"/>
 
 ## Simplification Threshold 
 Simplification threshold is a distance at which the shape or spatio-temporal characteristics 
@@ -81,7 +93,7 @@ A minimum distance threshold is used to maintain a certain proximity to constrai
 When this minimum distance is not observed by the input polyline, then the simplified geometry will use the
 proximity of the input geometry to a constraint object.
 
-<img src="imgs/img-dist-relate-1.png" width="40%" style="padding: 10px;"/>
+<img src="imgs/distance-relation.png" width="40%" style="padding: 10px;"/>
 
 ## Side Relation 
 Side relation maintains sidedness of constraint objects to the simplified polyline.
