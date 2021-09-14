@@ -41,7 +41,7 @@ Advance settings are provided in the next tab:
 <img src="imgs/input-adv.jpg" width="40%" style="padding: 10px;"/>
 
 ## Linear Feature Class
-In [Douglas-Peucker simplification](dp), linear features in the input feature class are 
+In [Douglas-Peucker simplification][dp], linear features in the input feature class are 
 expected to be `X,Y` coordinates. In a spatio-temporal simplification, input features 
 should be `X,Y,Z` or `X,Y,M`, where `Z` or `M` component represents time. 
 Spatio-temporal simplification uses synchronised euclidean distance algorithm 
