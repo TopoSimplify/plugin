@@ -36,12 +36,12 @@ The figure bellow shows the basic input interface of the plugin.
 
 <img src="imgs/input.jpg" width="40%" style="padding: 10px;"/>
 
-Advanced settings are provided in the next tab: 
+Advance settings are provided in the next tab: 
 
 <img src="imgs/input-adv.jpg" width="40%" style="padding: 10px;"/>
 
 ## Linear Feature Class
-In Douglas-Peucker simplification, linear features in the input feature class are 
+In [Douglas-Peucker simplification](dp), linear features in the input feature class are 
 expected to be `X,Y` coordinates. In a spatio-temporal simplification, input features 
 should be `X,Y,Z` or `X,Y,M`, where `Z` or `M` component represents time. 
 Spatio-temporal simplification uses synchronised euclidean distance algorithm 
@@ -105,3 +105,6 @@ Side relation maintains sidedness of constraint objects to the simplified polyli
 <img src="imgs/img-heuristic-6.png" width="70%" style="padding: 10px;"/>
 
 
+
+
+[dp]: https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
