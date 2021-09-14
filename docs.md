@@ -31,10 +31,14 @@ and spatio-temporal trajectories.
 
 
 # Input parameters 
-All input features (lines and constraints) are expected to be in the same projected
-coordinate system. 
+All input and constraint features are expected to be in the same projected coordinate system.
+The figure bellow shows the basic input interface of the plugin.  
+
 <img src="imgs/input.jpg" width="40%" style="padding: 10px;"/>
 
+Advance settings are provided in the next tab: 
+
+<img src="imgs/input-adv.jpg" width="40%" style="padding: 10px;"/>
 
 ## Linear Feature Class
 In Douglas-Peucker simplification, linear features in the input feature class are 
