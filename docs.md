@@ -36,7 +36,7 @@ The figure bellow shows the basic input interface of the plugin.
 
 <img src="imgs/input.jpg" width="40%" style="padding: 10px;"/>
 
-Advance settings are provided in the next tab: 
+Advanced settings are provided in the next tab: 
 
 <img src="imgs/input-adv.jpg" width="40%" style="padding: 10px;"/>
 
