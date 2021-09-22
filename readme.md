@@ -24,20 +24,20 @@ Make sure to properly escape input JSON. For example:
 
 ```json
 {
-  "input": "/path/to/input.[shp]",
-  "output": "/path/to/output.shp",
-  "constraints": "/path/to/file.[shp]",
-  "simplificationType": "DP",
+  "input": "/path/to/input.json",
+  "output": "/path/to/output.json",
+  "constraints": ["/path/to/file.json", "/path/to/file.json"],
+  "simplification_type": "DP",
   "threshold": 0.0,
-  "minDist": 0.0,
-  "relaxDist": 0.0,
-  "isFeatureClass": false,
-  "planarSelf": false,
-  "nonPlanarSelf": false,
+  "minimum_distance": 0.0,
+  "relax_distance": 0.0,
+  "is_feature_class": false,
+  "planar_self": false,
+  "non_planar_self": false,
   "avoid_new_self_intersects": false,
-  "geom_relation": false,
-  "dist_relation": false,
-  "side_relation" : false
+  "geometric_relation": false,
+  "distance_relation": false,
+  "homotopy_relation" : false
 }
 ```
 Json input field descriptions:

@@ -12,4 +12,5 @@ require (
 	github.com/intdxdt/math v1.0.0
 	github.com/naoina/go-stringutil v0.1.0 // indirect
 	github.com/naoina/toml v0.1.1
+	github.com/paulmach/go.geojson v1.4.0 // indirect
 )

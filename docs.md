@@ -85,9 +85,9 @@ If checked (set to true) will preserve the overlay spatial relations between inp
 and simplification - intersect and disjoint relations
 
 <p float="left">
-  <img src="imgs/img-geom-relate-1.png" width="40%" style="padding: 10px;"/>
+  <img src="imgs/geom-relate-1.png" width="40%" style="padding: 10px;"/>
 
-  <img src="imgs/img-geom-relate-2.png" width="40%" style="padding: 10px;"/>
+  <img src="imgs/geom-relate-2.png" width="40%" style="padding: 10px;"/>
 </p>
 
 

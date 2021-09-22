@@ -23,10 +23,9 @@ func main() {
 
 	var args = os.Args[1:]
 	if len(args) == 0 {
-		log.Fatalln("Input File Not Provided !")
+		log.Fatalln("input base64 string not provided !")
 	}
-	var input = strings.TrimSpace(strings.Join(args, " "))
-	var cfg = parseInputJSON(input)
+	var cfg = parseInput(strings.TrimSpace(args[0]))
 	var options = optsFromCfg(cfg)
 	var constraints []geom.Geometry
 	var simpleCoords []geom.Coords
@@ -35,7 +34,7 @@ func main() {
 	cfg.SimplificationType = strings.ToLower(strings.TrimSpace(cfg.SimplificationType))
 	var offsetFn = offsetDictionary[cfg.SimplificationType]
 	if offsetFn == nil {
-		log.Println(`Supported Simplification Types : "DP" or "SED", Fix JSON input`)
+		log.Println(`Supported Simplification Types : "DP" or "SED", Fix input`)
 		os.Exit(1)
 	}
 
@@ -58,10 +57,10 @@ func main() {
 	}
 
 	// read constraints
-	cfg.Constraints = strings.TrimSpace(cfg.Constraints)
+	cfg.Constraints[0] = strings.TrimSpace(cfg.Constraints[0])
 
-	if cfg.Constraints != "" && isShapeFile(cfg.Constraints) {
-		constraints, err = readConstraints(cfg.Constraints)
+	if cfg.Constraints[0] != "" && isShapeFile(cfg.Constraints[0]) {
+		constraints, err = readConstraints(cfg.Constraints[0])
 		if err != io.EOF {
 			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", cfg.Constraints, err))
 			os.Exit(1)
