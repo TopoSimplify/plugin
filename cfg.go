@@ -5,8 +5,8 @@ import (
 	"log"
 )
 
-//Cfg struct
-type Cfg struct {
+//ArgObj struct
+type ArgObj struct {
 	Input                  string   `json:"input"`
 	Output                 string   `json:"output"`
 	Constraints            []string `json:"constraints"`
@@ -23,7 +23,7 @@ type Cfg struct {
 	SideRelation           bool     `json:"homotopy_relation"`
 }
 
-func (opt Cfg) String() string {
+func (opt ArgObj) String() string {
 	var cfgbytes, err = json.Marshal(opt)
 	if err != nil {
 		panic(err)
@@ -31,8 +31,8 @@ func (opt Cfg) String() string {
 	return string(cfgbytes)
 }
 
-func parseInput(arg string) Cfg {
-	var config = Cfg{}
+func parseInput(arg string) ArgObj {
+	var config = ArgObj{}
 	var jsonInput = decode64(arg)
 	if err := json.Unmarshal([]byte(jsonInput), &config); err != nil {
 		log.Println("invalid input:")

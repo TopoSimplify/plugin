@@ -18,6 +18,12 @@ github.com/TopoSimplify/geometry v0.0.1 h1:QnaBAgnyfRoWudG0twWVh/FoFuscByMS1D0x/
 github.com/TopoSimplify/geometry v0.0.1/go.mod h1:KzAh9TXAdLMcWtaNvpkQ3zQQ1R3+qry/YIj2Hu2Nq5Y=
 github.com/TopoSimplify/geometry v0.0.2 h1:5KrLM567/f9Z28nkfiZCpgM9cR8h3VBFAyAVZIro7Xw=
 github.com/TopoSimplify/geometry v0.0.2/go.mod h1:KzAh9TXAdLMcWtaNvpkQ3zQQ1R3+qry/YIj2Hu2Nq5Y=
+github.com/TopoSimplify/geometry v0.0.3 h1:meTzKeavyjkTEe5jouhskjaWvXLD3CklXLtV0M5VNqQ=
+github.com/TopoSimplify/geometry v0.0.3/go.mod h1:gsHuv5HgK+0AmS/hizPb/eGyF8t69EbFBtPAGv64EcY=
+github.com/TopoSimplify/geometry v0.0.4 h1:hZUhuwt/lSmYHDJZwTYuvRa7xax/keLxrUOkUbTnLHE=
+github.com/TopoSimplify/geometry v0.0.4/go.mod h1:6ncphQd75gcbdteAkamPHhByfJM7fK1uPqifY6Kc7Lo=
+github.com/TopoSimplify/geometry v0.0.5 h1:f1H0oL54T+3LvMUkzyS5dztb8A2tRHfYpO+xx/Ds7UQ=
+github.com/TopoSimplify/geometry v0.0.5/go.mod h1:6ncphQd75gcbdteAkamPHhByfJM7fK1uPqifY6Kc7Lo=
 github.com/TopoSimplify/hdb v1.0.0 h1:lsUeuLygVxOPDFMrF4QhAHMD8JzUGqcWCSbulkROeME=
 github.com/TopoSimplify/hdb v1.0.0/go.mod h1:MB4BMYpjC0aq4pryYkFL6SXppkTiZ0n44//KZbLzWno=
 github.com/TopoSimplify/homotopy v0.0.0-20180829041249-ecc681c8cadf h1:wuZfID0IQ+ZlbT0rrvxWbEtBbrxjnaSdI4nS+tvfiE8=

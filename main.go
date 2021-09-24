@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/TopoSimplify/geometry"
 	"github.com/TopoSimplify/opts"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/math"
@@ -25,14 +26,19 @@ func main() {
 	if len(args) == 0 {
 		log.Fatalln("input base64 string not provided !")
 	}
-	var cfg = parseInput(strings.TrimSpace(args[0]))
-	var options = optsFromCfg(cfg)
-	var constraints []geom.Geometry
+
+	var argObj = parseInput(strings.TrimSpace(args[0]))
+	var options = optsFromCfg(argObj)
 	var simpleCoords []geom.Coords
 
+	var polyline = geometry.ReadInputPolylines("data/input.json")
+	var constraints = geometry.ReadInputConstraints("data/constraints.json")
+	fmt.Println(polyline)
+	fmt.Println(constraints)
+
 	//config simplification type
-	cfg.SimplificationType = strings.ToLower(strings.TrimSpace(cfg.SimplificationType))
-	var offsetFn = offsetDictionary[cfg.SimplificationType]
+	argObj.SimplificationType = strings.ToLower(strings.TrimSpace(argObj.SimplificationType))
+	var offsetFn = offsetDictionary[argObj.SimplificationType]
 	if offsetFn == nil {
 		log.Println(`Supported Simplification Types : "DP" or "SED", Fix input`)
 		os.Exit(1)
@@ -40,10 +46,10 @@ func main() {
 
 	var err error
 	var polyCoords []geom.Coords
-	if isShapeFile(cfg.Input) {
-		polyCoords, err = readWKTInput(cfg.Input)
+	if isShapeFile(argObj.Input) {
+		polyCoords, err = readWKTInput(argObj.Input)
 		if err != io.EOF {
-			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", cfg.Input, err))
+			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", argObj.Input, err))
 			os.Exit(1)
 		}
 	} else {
@@ -51,18 +57,18 @@ func main() {
 	}
 
 	// config output
-	cfg.Output = strings.TrimSpace(cfg.Output)
-	if cfg.Output == "" {
+	argObj.Output = strings.TrimSpace(argObj.Output)
+	if argObj.Output == "" {
 		panic("output path shapefile (*.shp) path required !")
 	}
 
 	// read constraints
-	cfg.Constraints[0] = strings.TrimSpace(cfg.Constraints[0])
+	argObj.Constraints[0] = strings.TrimSpace(argObj.Constraints[0])
 
-	if cfg.Constraints[0] != "" && isShapeFile(cfg.Constraints[0]) {
-		constraints, err = readConstraints(cfg.Constraints[0])
+	if argObj.Constraints[0] != "" && isShapeFile(argObj.Constraints[0]) {
+		//constraints, err = readConstraints(argObj.Constraints[0])
 		if err != io.EOF {
-			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", cfg.Constraints, err))
+			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", argObj.Constraints, err))
 			os.Exit(1)
 		}
 	}
@@ -70,7 +76,7 @@ func main() {
 	// simplify
 	log.Println("starting simplification ")
 	var t0 = time.Now()
-	if cfg.IsFeatureClass {
+	if argObj.IsFeatureClass {
 		simpleCoords = simplifyFeatureClass(polyCoords, &options, constraints, offsetFn)
 	} else {
 		simpleCoords = simplifyInstances(polyCoords, &options, constraints, offsetFn)
@@ -81,12 +87,12 @@ func main() {
 
 	var saved bool
 	//Save output
-	if isShapeFile(cfg.Input) {
-		switch cfg.SimplificationType {
+	if isShapeFile(argObj.Input) {
+		switch argObj.SimplificationType {
 		case "dp":
-			err = writeCoords(cfg.Output, simpleCoords, geom.WriteWKT)
+			err = writeCoords(argObj.Output, simpleCoords, geom.WriteWKT)
 		case "sed":
-			err = writeCoords(cfg.Output, simpleCoords, geom.WriteWKT3D)
+			err = writeCoords(argObj.Output, simpleCoords, geom.WriteWKT3D)
 		}
 		if err != nil {
 			panic(err)
@@ -96,20 +102,20 @@ func main() {
 		panic("unknown file type, expects output as shapefile: /path/to/name.shp")
 	}
 	if saved {
-		log.Println("simplification save to file :", cfg.Output)
+		log.Println("simplification save to file :", argObj.Output)
 	}
 }
 
-func optsFromCfg(cfg Cfg) opts.Opts {
+func optsFromCfg(obj ArgObj) opts.Opts {
 	return opts.Opts{
-		Threshold:              cfg.Threshold,
-		MinDist:                cfg.MinDist,
-		RelaxDist:              cfg.RelaxDist,
-		PlanarSelf:             cfg.PlanarSelf,
-		AvoidNewSelfIntersects: cfg.AvoidNewSelfIntersects,
-		GeomRelation:           cfg.GeomRelation,
-		DistRelation:           cfg.DistRelation,
-		DirRelation:            cfg.SideRelation,
+		Threshold:              obj.Threshold,
+		MinDist:                obj.MinDist,
+		RelaxDist:              obj.RelaxDist,
+		PlanarSelf:             obj.PlanarSelf,
+		AvoidNewSelfIntersects: obj.AvoidNewSelfIntersects,
+		GeomRelation:           obj.GeomRelation,
+		DistRelation:           obj.DistRelation,
+		DirRelation:            obj.SideRelation,
 	}
 }
 

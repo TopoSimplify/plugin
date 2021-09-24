@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/TopoSimplify/constdp"
+	"github.com/TopoSimplify/geometry"
 	"github.com/TopoSimplify/opts"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/iter"
@@ -24,7 +25,7 @@ func simplifyInstances(lns []geom.Coords, opts *opts.Opts, constraints []geom.Ge
 }
 
 func simplifyFeatureClass(
-	lns []geom.Coords, opts *opts.Opts, constraints []geom.Geometry,
+	lns []geom.Coords, opts *opts.Opts, constraints geometry.GeoJSONGeometries,
 	offsetFn func(geom.Coords) (int, float64),
 ) []geom.Coords {
 	var id = iter.NewIgen()
