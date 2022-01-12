@@ -1,7 +1,7 @@
 package hdb
 
 import (
-	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/plugin/node"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/mbr"
 	"testing"

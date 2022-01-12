@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/TopoSimplify/geometry"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/intdxdt/fileutil"
 	"github.com/intdxdt/geom"
 	geojson "github.com/paulmach/go.geojson"
@@ -21,7 +21,7 @@ func readInputPolylines(inputJsonFile string) []geometry.Polyline {
 	return parseInputLinearFeatures(readJsonFile(inputJsonFile))
 }
 
-func readInputConstraints(inputJsonFile string) geometry.GeoJSONGeometries  {
+func readInputConstraints(inputJsonFile string) geometry.GeoJSONGeometries {
 	return parseConstraintFeatures(readJsonFile(inputJsonFile))
 }
 

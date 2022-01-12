@@ -1,15 +1,15 @@
 package deform
 
 import (
-	"time"
-	"testing"
-	"github.com/intdxdt/iter"
+	"github.com/TopoSimplify/plugin/common"
+	"github.com/TopoSimplify/plugin/dp"
+	"github.com/TopoSimplify/plugin/hdb"
+	"github.com/TopoSimplify/plugin/offset"
+	"github.com/TopoSimplify/plugin/opts"
 	"github.com/franela/goblin"
-	"github.com/TopoSimplify/dp"
-	"github.com/TopoSimplify/hdb"
-	"github.com/TopoSimplify/opts"
-	"github.com/TopoSimplify/offset"
-	"github.com/TopoSimplify/common"
+	"github.com/intdxdt/iter"
+	"testing"
+	"time"
 )
 
 func TestSelectFeatureClass(t *testing.T) {
