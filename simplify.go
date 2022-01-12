@@ -1,14 +1,14 @@
 package main
 
 import (
-	"github.com/TopoSimplify/constdp"
-	"github.com/TopoSimplify/geometry"
-	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/plugin/constdp"
+	"github.com/TopoSimplify/plugin/geometry"
+	"github.com/TopoSimplify/plugin/opts"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/iter"
 )
 
-func simplifyInstances(lns []geom.Coords, opts *opts.Opts, constraints []geom.Geometry,
+func simplifyInstances(lns []geom.Coords, opts *opts.Opts, constraints []geometry.IGeometry,
 	offsetFn func(geom.Coords) (int, float64)) []geom.Coords {
 	var id = iter.NewIgen()
 	var forest []*constdp.ConstDP
@@ -25,7 +25,7 @@ func simplifyInstances(lns []geom.Coords, opts *opts.Opts, constraints []geom.Ge
 }
 
 func simplifyFeatureClass(
-	lns []geom.Coords, opts *opts.Opts, constraints geometry.GeoJSONGeometries,
+	lns []geom.Coords, opts *opts.Opts, constraints []geometry.IGeometry,
 	offsetFn func(geom.Coords) (int, float64),
 ) []geom.Coords {
 	var id = iter.NewIgen()

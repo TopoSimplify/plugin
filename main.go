@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/TopoSimplify/geometry"
-	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/plugin/geometry"
+	"github.com/TopoSimplify/plugin/opts"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/math"
 	"io"

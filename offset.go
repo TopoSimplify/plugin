@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/TopoSimplify/offset"
+	"github.com/TopoSimplify/plugin/offset"
 	"github.com/intdxdt/geom"
 )
 
