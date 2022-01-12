@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/opts"
-	"github.com/intdxdt/geom"
+	"github.com/intdxdt/fileutil"
 	"github.com/intdxdt/math"
-	"io"
 	"log"
 	"os"
 	"path/filepath"
@@ -29,12 +28,9 @@ func main() {
 
 	var argObj = parseInput(strings.TrimSpace(args[0]))
 	var options = optsFromCfg(argObj)
-	var simpleCoords []geom.Coords
 
-	var polyline = geometry.ReadInputPolylines("data/input.json")
-	var constraints = geometry.ReadInputConstraints("data/constraints.json")
-	fmt.Println(polyline)
-	fmt.Println(constraints)
+	//var polyline = geometry.ReadInputPolylines("data/input.json")
+	//var constraints = geometry.ReadInputConstraints("data/constraints.json")
 
 	//config simplification type
 	argObj.SimplificationType = strings.ToLower(strings.TrimSpace(argObj.SimplificationType))
@@ -44,66 +40,42 @@ func main() {
 		os.Exit(1)
 	}
 
-	var err error
-	var polyCoords []geom.Coords
-	if isShapeFile(argObj.Input) {
-		polyCoords, err = readWKTInput(argObj.Input)
-		if err != io.EOF {
-			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", argObj.Input, err))
-			os.Exit(1)
-		}
+	var polylines = make([]geometry.Polyline, 0)
+
+	//lines
+	argObj.Input = strings.TrimSpace(argObj.Input)
+	if fileutil.IsFile(argObj.Input) {
+		polylines = geometry.ReadInputPolylines(argObj.Input)
 	} else {
-		panic("unknown file type, expects a shapefile: /path/to/name.shp")
+		panic("input file not provided")
 	}
 
-	// config output
+	//output
 	argObj.Output = strings.TrimSpace(argObj.Output)
 	if argObj.Output == "" {
-		panic("output path shapefile (*.shp) path required !")
+		panic("output filepath required !")
 	}
 
-	// read constraints
-	argObj.Constraints[0] = strings.TrimSpace(argObj.Constraints[0])
-
-	if argObj.Constraints[0] != "" && isShapeFile(argObj.Constraints[0]) {
-		//constraints, err = readConstraints(argObj.Constraints[0])
-		if err != io.EOF {
-			log.Println(fmt.Sprintf("Failed to read file: %v\nerror:%v\n", argObj.Constraints, err))
-			os.Exit(1)
+	//constraints
+	var constraints = make([]geometry.IGeometry, 0)
+	argObj.Constraints = strings.TrimSpace(argObj.Constraints)
+	if fileutil.IsFile(argObj.Constraints) {
+		constraints = geometry.ReadInputConstraints(argObj.Constraints)
+	} else {
+		if argObj.Constraints != "" {
+			panic("constraint file not found")
 		}
 	}
 
-	// simplify
-	log.Println("starting simplification ")
 	var t0 = time.Now()
 	if argObj.IsFeatureClass {
-		simpleCoords = simplifyFeatureClass(polyCoords, &options, constraints, offsetFn)
+		simpleCoords = simplifyFeatureClass(polylines, &options, constraints, offsetFn)
 	} else {
-		simpleCoords = simplifyInstances(polyCoords, &options, constraints, offsetFn)
+		simpleCoords = simplifyInstances(polylines, &options, constraints, offsetFn)
 	}
 	var t1 = time.Now()
-	log.Println("done simplification ")
-	log.Println(fmt.Sprintf("elapsed time: %v seconds", math.Round(t1.Sub(t0).Seconds(), 6)))
 
-	var saved bool
-	//Save output
-	if isShapeFile(argObj.Input) {
-		switch argObj.SimplificationType {
-		case "dp":
-			err = writeCoords(argObj.Output, simpleCoords, geom.WriteWKT)
-		case "sed":
-			err = writeCoords(argObj.Output, simpleCoords, geom.WriteWKT3D)
-		}
-		if err != nil {
-			panic(err)
-		}
-		saved = true
-	} else {
-		panic("unknown file type, expects output as shapefile: /path/to/name.shp")
-	}
-	if saved {
-		log.Println("simplification save to file :", argObj.Output)
-	}
+	log.Println(fmt.Sprintf("elapsed time: %v seconds", math.Round(t1.Sub(t0).Seconds(), 6)))
 }
 
 func optsFromCfg(obj ArgObj) opts.Opts {
