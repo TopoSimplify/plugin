@@ -26,8 +26,7 @@ func simplifyInstances(lns []geometry.Polyline, opts *opts.Opts,
 
 func simplifyFeatureClass(
 	lns []geometry.Polyline, opts *opts.Opts, constraints []geometry.IGeometry,
-	offsetFn func(geom.Coords) (int, float64),
-) []geom.Coords {
+	offsetFn func(geom.Coords) (int, float64)) []geom.Coords {
 	var id = iter.NewIgen()
 	var forest []*constdp.ConstDP
 	for _, ln := range lns {
