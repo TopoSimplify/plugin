@@ -1,12 +1,12 @@
 package hdb
 
 import (
-	"time"
-	"testing"
-	"github.com/intdxdt/mbr"
+	"github.com/TopoSimplify/plugin/node"
 	"github.com/franela/goblin"
-	"github.com/TopoSimplify/node"
 	"github.com/intdxdt/iter"
+	"github.com/intdxdt/mbr"
+	"testing"
+	"time"
 )
 
 type Pnt struct {
@@ -111,7 +111,7 @@ func TestRtree(t *testing.T) {
 		var length = len(data)
 		var data1By1 = data[:length:length]
 		for i := range data1By1 {
-			tree.insert(&node.Node{Id:id.Next(),MBR: data1By1[i]})
+			tree.insert(&node.Node{Id: id.Next(), MBR: data1By1[i]})
 		}
 
 		g.It("same root bounds for : bulkload & single insert ", func() {
@@ -125,11 +125,11 @@ func TestRtree(t *testing.T) {
 			var dataOnebyone = data[:length:length]
 			for i := range dataOnebyone {
 				//fmt.Println(i, " -> ", len(oneT.data.children))
-				oneT.insert(&node.Node{Id:id.Next(),MBR: dataOnebyone[i]})
+				oneT.insert(&node.Node{Id: id.Next(), MBR: dataOnebyone[i]})
 			}
 			//fill zero size
 			for i := range dataOnebyone {
-				oneDeft.insert(&node.Node{Id:id.Next(),MBR: dataOnebyone[i]})
+				oneDeft.insert(&node.Node{Id: id.Next(), MBR: dataOnebyone[i]})
 			}
 
 			var oneMbr = oneT.data.bbox
@@ -177,7 +177,7 @@ func TestRtree(t *testing.T) {
 		var length = len(data)
 		var dataOnebyone = data[:length:length]
 		for i := range dataOnebyone {
-			tree.insert(&node.Node{Id:id.Next(),MBR: dataOnebyone[i]})
+			tree.insert(&node.Node{Id: id.Next(), MBR: dataOnebyone[i]})
 		}
 
 		g.It("same root bounds for : bulkload & single insert ", func() {
@@ -226,7 +226,7 @@ func TestRtree(t *testing.T) {
 		}
 
 		for i := range dataOnebyone {
-			tree.insert(&node.Node{Id:id.Next(),MBR: dataOnebyone[i]})
+			tree.insert(&node.Node{Id: id.Next(), MBR: dataOnebyone[i]})
 		}
 		bulkTree.Load(bulkItems)
 

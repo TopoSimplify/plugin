@@ -2,8 +2,8 @@ package hdb
 
 import (
 	"fmt"
+	"github.com/TopoSimplify/plugin/node"
 	"github.com/intdxdt/mbr"
-	"github.com/TopoSimplify/node"
 )
 
 //KObj instance struct

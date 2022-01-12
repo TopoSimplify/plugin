@@ -1,7 +1,7 @@
 package pln
 
 import (
-	"github.com/TopoSimplify/rng"
+	"github.com/TopoSimplify/plugin/rng"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/geom"
 	"testing"

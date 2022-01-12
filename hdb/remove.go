@@ -1,8 +1,8 @@
 package hdb
 
 import (
+	"github.com/TopoSimplify/plugin/node"
 	"github.com/intdxdt/mbr"
-	"github.com/TopoSimplify/node"
 )
 
 func nodeAtIndex(a []*dbNode, i int) *dbNode {

@@ -1,9 +1,9 @@
 package lnr
 
 import (
-	"github.com/TopoSimplify/opts"
-	"github.com/TopoSimplify/pln"
-	"github.com/TopoSimplify/state"
+	"github.com/TopoSimplify/plugin/opts"
+	"github.com/TopoSimplify/plugin/pln"
+	"github.com/TopoSimplify/plugin/state"
 	"github.com/intdxdt/geom"
 )
 

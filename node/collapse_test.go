@@ -1,8 +1,8 @@
 package node
 
 import (
-	"github.com/TopoSimplify/pln"
-	"github.com/TopoSimplify/rng"
+	"github.com/TopoSimplify/plugin/pln"
+	"github.com/TopoSimplify/plugin/rng"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/geom"
 	"testing"

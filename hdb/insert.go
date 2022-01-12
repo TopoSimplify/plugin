@@ -1,9 +1,9 @@
 package hdb
 
 import (
-	"github.com/intdxdt/mbr"
-	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/plugin/node"
 	"github.com/intdxdt/math"
+	"github.com/intdxdt/mbr"
 )
 
 //insert - private

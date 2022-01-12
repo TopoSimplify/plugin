@@ -1,12 +1,12 @@
 package merge
 
 import (
-	"github.com/TopoSimplify/common"
-	"github.com/TopoSimplify/hdb"
-	"github.com/TopoSimplify/knn"
-	"github.com/TopoSimplify/lnr"
-	"github.com/TopoSimplify/node"
-	"github.com/TopoSimplify/rng"
+	"github.com/TopoSimplify/plugin/common"
+	"github.com/TopoSimplify/plugin/hdb"
+	"github.com/TopoSimplify/plugin/knn"
+	"github.com/TopoSimplify/plugin/lnr"
+	"github.com/TopoSimplify/plugin/node"
+	"github.com/TopoSimplify/plugin/rng"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/iter"
 	"sort"
@@ -22,7 +22,7 @@ func Range(ra, rb rng.Rng) rng.Rng {
 //Merge contiguous fragments based combined score
 func ContiguousFragmentsAtThreshold(
 	id *iter.Igen, scoreFn lnr.ScoreFn, ha, hb *node.Node,
-	scoreRelation func(float64) bool, gfn func(geom.Coords)geom.Geometry) (bool, node.Node) {
+	scoreRelation func(float64) bool, gfn func(geom.Coords) geom.Geometry) (bool, node.Node) {
 
 	if !ha.Range.Contiguous(hb.Range) {
 		panic("node are not contiguous")
@@ -53,7 +53,7 @@ func ContiguousCoordinates(ha, hb *node.Node) geom.Coords {
 
 //Merge contiguous hulls
 func contiguousFragments(id *iter.Igen, coordinates geom.Coords, ha, hb *node.Node,
-	gfn func(geom.Coords)geom.Geometry) node.Node {
+	gfn func(geom.Coords) geom.Geometry) node.Node {
 	// i...[ha]...k...[hb]...j
 	return node.CreateNode(id, coordinates, Range(ha.Range, hb.Range), gfn, ha.Instance)
 }
@@ -68,7 +68,7 @@ func ContiguousFragmentsBySize(
 	fragmentSize int,
 	isScoreValid func(float64) bool,
 	scoreFn lnr.ScoreFn,
-	gfn func(geom.Coords)geom.Geometry) ([]*node.Node, []*node.Node) {
+	gfn func(geom.Coords) geom.Geometry) ([]*node.Node, []*node.Node) {
 
 	//@formatter:off
 	var keep = make([]*node.Node, 0)

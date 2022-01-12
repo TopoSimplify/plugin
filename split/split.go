@@ -3,7 +3,7 @@ package split
 import (
 	"github.com/TopoSimplify/plugin/lnr"
 	"github.com/TopoSimplify/plugin/node"
-	"github.com/TopoSimplify/rng"
+	"github.com/TopoSimplify/plugin/rng"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/iter"
 )

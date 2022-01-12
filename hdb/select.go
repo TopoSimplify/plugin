@@ -1,8 +1,8 @@
 package hdb
 
 import (
+	"github.com/TopoSimplify/plugin/node"
 	"math"
-	"github.com/TopoSimplify/node"
 )
 
 // sort an array so that items come in groups of n unsorted items,
@@ -56,7 +56,7 @@ func selectBox(arr []*node.Node, k, left, right int, cmp int) {
 
 		swapItem(arr, left, k)
 
-		if  (cmp == cmpMinX && (arr[right].MBR.MinX-tMinX) > 0) ||
+		if (cmp == cmpMinX && (arr[right].MBR.MinX-tMinX) > 0) ||
 			(cmp == cmpMinY && (arr[right].MBR.MinY-tMinY) > 0) {
 			swapItem(arr, left, right)
 		}
@@ -77,7 +77,7 @@ func selectBox(arr []*node.Node, k, left, right int, cmp int) {
 			}
 		}
 
-		if  (cmp == cmpMinX && (arr[left].MBR.MinX-tMinX) == 0) ||
+		if (cmp == cmpMinX && (arr[left].MBR.MinX-tMinX) == 0) ||
 			(cmp == cmpMinY && (arr[left].MBR.MinY-tMinY) == 0) {
 			swapItem(arr, left, j)
 		} else {

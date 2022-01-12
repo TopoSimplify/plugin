@@ -7,7 +7,7 @@ import (
 	"github.com/intdxdt/iter"
 )
 
-//Line simplification at a given threshold
+//Simplify - Line simplification at a given threshold
 func (self *ConstDP) Simplify(id *iter.Igen, constVertices ...[]int) *ConstDP {
 	var constVertexSet []int
 	var constVerts []int

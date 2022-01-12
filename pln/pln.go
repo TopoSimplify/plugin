@@ -1,7 +1,7 @@
 package pln
 
 import (
-	"github.com/TopoSimplify/rng"
+	"github.com/TopoSimplify/plugin/rng"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/geom/mono"
 	"github.com/intdxdt/mbr"

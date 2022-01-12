@@ -1,9 +1,9 @@
 package node
 
 import (
-	"github.com/TopoSimplify/lnr"
-	"github.com/TopoSimplify/pln"
-	"github.com/TopoSimplify/rng"
+	"github.com/TopoSimplify/plugin/lnr"
+	"github.com/TopoSimplify/plugin/pln"
+	"github.com/TopoSimplify/plugin/rng"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/iter"
 	"github.com/intdxdt/mbr"
@@ -83,7 +83,7 @@ func (node *Node) SegmentAsPolyline() pln.Polyline {
 	return pln.CreatePolyline(coords)
 }
 
-// segment points
+//SegmentPoints - segment points
 func (node *Node) SegmentPoints() (*geom.Point, *geom.Point) {
 	return node.First(), node.Last()
 }

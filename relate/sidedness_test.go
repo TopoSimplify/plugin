@@ -1,11 +1,11 @@
 package relate
 
 import (
-	"time"
-	"testing"
-	"github.com/intdxdt/geom"
+	"github.com/TopoSimplify/plugin/ctx"
 	"github.com/franela/goblin"
-	"github.com/TopoSimplify/ctx"
+	"github.com/intdxdt/geom"
+	"testing"
+	"time"
 )
 
 func TestSidedness(t *testing.T) {
@@ -18,12 +18,12 @@ func TestSidedness(t *testing.T) {
 			var coords = geom.NewLineStringFromWKT(polyln).Coordinates
 			//using only poly0
 			var ctxgeoms = ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0).AsContextGeometries()
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsTrue()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsTrue()
 
 			//using poly1
 			var poly1 = "POLYGON (( 221 347, 205 334, 221 322, 234 324, 237 342, 221 347 ))"
 			ctxgeoms = ctx.NewContexts(ctx.New(geom.NewPolygonFromWKT(poly1), -1, 0))
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsTrue()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsTrue()
 
 			//using poly0 and poly1
 			ctxgeoms = ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0).AsContextGeometries().Push(
@@ -35,41 +35,41 @@ func TestSidedness(t *testing.T) {
 			polyln = "LINESTRING ( 155 171, 207 166, 253 175, 317 171, 366.3526316090967 196.8011373660995, 403.24889098928804 217.07380735521562, 449.06512516469047 258.02460073323016, 469.7432485535889 310.7335427049321, 471.50392377693095 357.2445923621374, 459.17233787042085 384.55024686940965, 435.2315676771032 379.0896298976944, 421.41537343261 346.6608527245552, 392.74529568744737 330.93485457399595, 370.2087538305982 346.6746615851287, 375.07353147167777 371.93565702969966, 384.86292089142125 409.47595509141127, 401.0377185968734 428.5916251069456, 362.8344377501964 475.8341413005543, 303.51814850672173 477.88349751591124, 253.9395152835032 467.3480379559773, 233.36391648049494 444.9386180328808, 205.38763189551466 402.77146445551926, 204 370, 176 337, 180 305, 214 295, 191.4007581862021 285.8975596173291, 195 264, 187 230, 216 215, 257 226, 225.08021076634535 263.95613448800214, 248.30540712326405 294.76261255728286, 273.09263453166125 327.6410074616854, 308.7545836354981 374.9439036823187, 348 427 )"
 			coords = geom.NewLineStringFromWKT(polyln).Coordinates
 			ctxgeoms = ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0).AsContextGeometries()
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsFalse()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsFalse()
 
 			poly0 = "POLYGON (( 278 307, 270 298, 274 286, 279 272, 301 274, 308 288, 311 304, 296 308, 278 307 ))"
 			ctxgeoms = ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0).AsContextGeometries()
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsFalse()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsFalse()
 
 			polyln = "LINESTRING ( 155 171, 189.63910305670066 144.08432169246322, 253.9395152835032 145.84597682196465, 317 171, 366.3526316090967 196.8011373660995, 403.24889098928804 217.07380735521562, 449.2399093677868 286.1290060157034, 451.783228702019 325.7276851722446, 415.8591984439269 355.71930167053, 418.6880722510337 402.11283210708103, 389.8335594185446 420.2176244725644, 350.83054740608236 477.91796873298597, 266.27110119001327 476.15631360348453, 164.0951036789298 449.7314866609629, 107.72213953488374 344.9130064556273, 116.53041518239094 298.2291455238391, 130.62365621840246 256.8302499805553, 151.76351777241973 229.52459547328303, 220.46806782297585 190.76818262425135, 263.6286184957611 215.4313544372715, 241.3878725848878 285.58702270327086, 217.39831804889542 317.49495464420494, 208.13648191646578 343.15135132612585, 214.3022748697208 392.47769495216613, 226.63386077623088 413.6175565061834, 242.7959277400187 428.5328808600021, 256 430, 289 431, 348 427 )"
 			poly0 = "POLYGON (( 278 307, 270 298, 274 286, 279 272, 301 274, 308 288, 311 304, 296 308, 278 307 ))"
 			ctxgeoms = ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0).AsContextGeometries()
 			coords = geom.NewLineStringFromWKT(polyln).Coordinates
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsFalse()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsFalse()
 
 			poly0 = "POLYGON (( 221 347, 205 334, 221 322, 234 324, 237 342, 221 347 ))"
 			ctxgeoms = ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0).AsContextGeometries()
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsFalse()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsFalse()
 
 			coords = geom.Coordinates([]geom.Point{{2, 2}, {5, 2}, {7, 2}, {9, 2}})
 			var lnconst = geom.NewLineString(geom.Coordinates([]geom.Point{{3, 2}, {6, 2}, {6.5, 2}}))
 			ctxgeoms = ctx.New(lnconst, -1, 0).AsContextGeometries()
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsTrue()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsTrue()
 
 			var plyconst = geom.NewPolygon(geom.Coordinates([]geom.Point{{4, 1}, {4, 3}, {5, 3}, {5, 1}}))
 			ctxgeoms = ctx.New(plyconst, -1, 0).AsContextGeometries()
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsTrue()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsTrue()
 
 			polyln = "LINESTRING ( 155 171, 207 166, 253 175, 317 171, 367 182, 400 200, 428 249, 417 291, 383 324, 361 332, 333 347, 314 357, 257 383, 204 370, 176 337, 180 305, 214 295, 244 302, 281 332, 316 328, 331 306, 332 291, 315 265, 285 250, 247 261, 231 276, 175.9815455950541 265.3822256568778, 187 230, 233.38568778979908 233.9203400309118, 265.9514992272025 234.4723029366305, 274.230942812983 207.97808346213282, 248.54273709311704 199.72323889171014, 215.17091190108192 192.52312210200918, 156.16765559617332 215.4313544372715, 129.74282865365174 249.78362946254956, 164.97593124368052 358.12541992688807, 211 425, 256 430, 289 431, 348 427 )"
 			poly0 = "POLYGON (( 278 307, 268.711313755796 290.77251931993817, 235.45711654915712 296.5278817518552, 232.8337248840804 286.90877897990725, 277.40587928436713 278.46806414206173, 285.4987949850666 282.69941864135717, 288.58197836166926 290.77251931993817, 290.2378670788254 299.05196290571865, 278 307 ))"
 			ctxgeoms = ctx.NewContexts(ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0))
 			coords = geom.NewLineStringFromWKT(polyln).Coordinates
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsFalse()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsFalse()
 
 			poly0 = "POLYGON (( 221 347, 205 334, 221 322, 234 324, 237 342, 221 347 ))"
 			ctxgeoms = ctx.NewContexts(ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0))
 			coords = geom.NewLineStringFromWKT(polyln).Coordinates
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsTrue()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsTrue()
 
 			poly1 = "POLYGON (( 232.00298146975462 210.52416263821522, 232.00298146975462 220.68605060410567, 246.51996427816957 220.68605060410567, 246.51996427816957 210.52416263821522, 232.00298146975462 210.52416263821522 ))"
 			ctxgeoms = ctx.NewContexts(ctx.New(geom.NewPolygonFromWKT(poly1), -1, 0))
@@ -82,7 +82,7 @@ func TestSidedness(t *testing.T) {
 			poly1 = "POLYGON (( 225.21282919521113 245.6378900803107, 223.30879887780458 254.77723560386218, 232.44814440135602 257.06207198475005, 241.97464275611355 248.90012869080064, 225.21282919521113 245.6378900803107 ))"
 			ctxgeoms = ctx.NewContexts(ctx.New(geom.NewPolygonFromWKT(poly1), -1, 0))
 			coords = geom.NewLineStringFromWKT(polyln).Coordinates
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsFalse()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsFalse()
 
 			ctxgeoms.Push(ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0))
 			g.Assert(Homotopy(coords, ctxgeoms)).IsFalse()
@@ -91,35 +91,35 @@ func TestSidedness(t *testing.T) {
 			poly0 = "POLYGON (( 211.34885547628429 235.3767011676454, 211.34885547628429 241.48063878287113, 213.69652378983264 241.48063878287113, 213.69652378983264 235.3767011676454, 211.34885547628429 235.3767011676454 ))"
 			ctxgeoms = ctx.NewContexts(ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0))
 			coords = geom.NewLineStringFromWKT(polyln).Coordinates
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsFalse()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsFalse()
 
 			polyln = "LINESTRING ( 155 171, 169.0211940381559 189.5980604858441, 178.36905451652774 201.99729511000572, 189.61729454361603 216.9172404309104, 155.33584906460158 235.98971111300912, 171.9249231022847 253.04608301090866, 184.81805947947288 266.3024063282993, 199.21035949720948 260.0405937778234, 216.46768369629606 252.53226438472433, 226.72184529093568 266.1336393496349, 253.77293550266072 261.8918612097899, 286.55244753078927 256.75183112348185, 298.89980243113513 277.3307559573916, 308.9755371420998 294.1236471423328, 311.6569923092747 322.2091261672002, 274.3587106022468 329.32036224961234, 286.70927127817396 345.7024530943654, 302.96002907406313 367.25786239875725, 265.3750851201071 385.89221758862226, 267.0360547209449 409.9762768007707, 292.87995239405126 407.8640164833156, 311.8206399330813 406.3159658301186, 333.85824574639133 408.2420254459906, 348 427 )"
 			poly0 = "POLYGON (( 211.34885547628429 235.3767011676454, 211.34885547628429 241.48063878287113, 213.69652378983264 241.48063878287113, 213.69652378983264 235.3767011676454, 211.34885547628429 235.3767011676454 ))"
 			ctxgeoms = ctx.NewContexts(ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0))
 
 			coords = geom.NewLineStringFromWKT(polyln).Coordinates
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsTrue()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsTrue()
 
 			polyln = "LINESTRING ( 90 270, 120 270, 150 270, 136.36099104257372 230.88019642162786, 162.54902402818348 222.82234011836331, 180 250, 180 270, 200 250, 210 270, 230 260, 250 270, 280 270, 300 270, 310 290, 310 320, 323.7061500934744 270, 332.43549442201095 270, 365.33840766034115 270, 380 310, 410 270, 450 310, 430 270, 470 270 )"
 			poly0 = "POLYGON (( 211.34885547628429 235.3767011676454, 211.34885547628429 241.48063878287113, 213.69652378983264 241.48063878287113, 213.69652378983264 235.3767011676454, 211.34885547628429 235.3767011676454 ))"
 			ctxgeoms = ctx.NewContexts(ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0))
 
 			coords = geom.NewLineStringFromWKT(polyln).Coordinates
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsTrue()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsTrue()
 
 			polyln = "LINESTRING ( 90 270, 470 270 )"
 			poly0 = "POLYGON (( 211.34885547628429 235.3767011676454, 211.34885547628429 241.48063878287113, 213.69652378983264 241.48063878287113, 213.69652378983264 235.3767011676454, 211.34885547628429 235.3767011676454 ))"
 			ctxgeoms = ctx.NewContexts(ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0))
 
 			coords = geom.NewLineStringFromWKT(polyln).Coordinates
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsTrue()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsTrue()
 
 			polyln = "LINESTRING ( 90 270, 470 270 )"
 			poly0 = "POLYGON (( 370 260, 370 300, 380 300, 380 260, 370 260 ))"
 			ctxgeoms = ctx.NewContexts(ctx.New(geom.NewPolygonFromWKT(poly0), -1, 0))
 
 			coords = geom.NewLineStringFromWKT(polyln).Coordinates
-			g.Assert(Homotopy(coords, ctxgeoms), ).IsTrue()
+			g.Assert(Homotopy(coords, ctxgeoms)).IsTrue()
 		})
 
 		g.It("should test sidedness to a context geometry - case 2", func() {

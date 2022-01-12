@@ -57,62 +57,62 @@ func New(
 	return &instance
 }
 
-func (self *DouglasPeucker) ScoreRelation(val float64) bool {
-	return val <= self.Opts.Threshold
+func (dp *DouglasPeucker) ScoreRelation(val float64) bool {
+	return val <= dp.Opts.Threshold
 }
 
-func (self *DouglasPeucker) SquareScoreRelation(val float64) bool {
-	return val <= (self.Opts.Threshold * self.Opts.Threshold)
+func (dp *DouglasPeucker) SquareScoreRelation(val float64) bool {
+	return val <= (dp.Opts.Threshold * dp.Opts.Threshold)
 }
 
-func (self *DouglasPeucker) Decompose(id *iter.Igen) []node.Node {
-	var score = self.Score
-	var relation = self.ScoreRelation
-	if self.SquareScore != nil {
-		score = self.SquareScore
-		relation = self.SquareScoreRelation
+func (dp *DouglasPeucker) Decompose(id *iter.Igen) []node.Node {
+	var score = dp.Score
+	var relation = dp.ScoreRelation
+	if dp.SquareScore != nil {
+		score = dp.SquareScore
+		relation = dp.SquareScoreRelation
 	}
 	var decomp = offset.EpsilonDecomposition{ScoreFn: score, Relation: relation}
 	return decompose.DouglasPeucker(
-		id, self.Polyline(), decomp, common.Geometry, self,
+		id, dp.Polyline(), decomp, common.Geometry, dp,
 	)
 }
 
-func (self *DouglasPeucker) Simplify(id *iter.Igen) *DouglasPeucker {
-	self.Hulls = self.Decompose(id)
-	return self
+func (dp *DouglasPeucker) Simplify(id *iter.Igen) *DouglasPeucker {
+	dp.Hulls = dp.Decompose(id)
+	return dp
 }
 
-func (self *DouglasPeucker) Simple() []int {
-	self.SimpleSet.Empty()
-	for i := range self.Hulls {
-		self.SimpleSet.Extend(self.Hulls[i].Range.I, self.Hulls[i].Range.J)
+func (dp *DouglasPeucker) Simple() []int {
+	dp.SimpleSet.Empty()
+	for i := range dp.Hulls {
+		dp.SimpleSet.Extend(dp.Hulls[i].Range.I, dp.Hulls[i].Range.J)
 	}
-	var indices = make([]int, self.SimpleSet.Size())
+	var indices = make([]int, dp.SimpleSet.Size())
 
-	self.SimpleSet.ForEach(func(v interface{}, i int) bool {
+	dp.SimpleSet.ForEach(func(v interface{}, i int) bool {
 		indices[i] = v.(int)
 		return true
 	})
 	return indices
 }
 
-func (self *DouglasPeucker) Id() int {
-	return self.id
+func (dp *DouglasPeucker) Id() int {
+	return dp.id
 }
 
-func (self *DouglasPeucker) State() *state.State {
-	return &self.state
+func (dp *DouglasPeucker) State() *state.State {
+	return &dp.state
 }
 
-func (self *DouglasPeucker) Options() *opts.Opts {
-	return self.Opts
+func (dp *DouglasPeucker) Options() *opts.Opts {
+	return dp.Opts
 }
 
-func (self *DouglasPeucker) Coordinates() geom.Coords {
-	return self.Pln.Coordinates
+func (dp *DouglasPeucker) Coordinates() geom.Coords {
+	return dp.Pln.Coordinates
 }
 
-func (self *DouglasPeucker) Polyline() pln.Polyline {
-	return self.Pln
+func (dp *DouglasPeucker) Polyline() pln.Polyline {
+	return dp.Pln
 }

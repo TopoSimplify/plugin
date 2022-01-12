@@ -27,7 +27,7 @@ func (self *ConstDP) ValidateMerge(hull *node.Node, hulldb *hdb.Hdb) bool {
 	return bln && (len(sideEffects) == 0)
 }
 
-//Constrain for context neighbours
+//ValidateContextRelation - Constrain for context neighbours
 // finds the collapsibility of hull with respect to context hull neighbours
 // if hull is deformable, its added to selections
 func (self *ConstDP) ValidateContextRelation(hull *node.Node, selections *[]*node.Node) bool {

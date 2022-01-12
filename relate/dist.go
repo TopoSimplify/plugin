@@ -1,9 +1,9 @@
 package relate
 
 import (
-	"github.com/TopoSimplify/ctx"
-	"github.com/TopoSimplify/node"
-	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/plugin/ctx"
+	"github.com/TopoSimplify/plugin/node"
+	"github.com/TopoSimplify/plugin/opts"
 )
 
 //distance relate

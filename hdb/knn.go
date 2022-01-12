@@ -1,9 +1,9 @@
 package hdb
 
 import (
+	"github.com/TopoSimplify/plugin/node"
 	"github.com/intdxdt/heap"
 	"github.com/intdxdt/mbr"
-	"github.com/TopoSimplify/node"
 )
 
 func predicate(_ *KObj) (bool, bool) {

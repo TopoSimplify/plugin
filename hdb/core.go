@@ -1,12 +1,13 @@
 package hdb
 
 import (
+	"github.com/TopoSimplify/plugin/node"
 	"github.com/intdxdt/math"
-	"github.com/TopoSimplify/node"
 )
 
 var inf = math.Inf(1)
-var feq =  math.FloatEqual
+var feq = math.FloatEqual
+
 type sortBy int
 
 const (

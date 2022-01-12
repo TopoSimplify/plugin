@@ -1,9 +1,9 @@
 package homotopy
 
 import (
+	"github.com/TopoSimplify/plugin/ctx"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/rtree"
-	"github.com/TopoSimplify/ctx"
 )
 
 //func printChain(chain *Chain) {
@@ -62,7 +62,7 @@ func collapseVertex(v *Vertex, db *rtree.RTree) bool {
 	var bln = true
 	var a, b, c = va.Point, vb.Point, vc.Point
 
-	var box = a.BBox().ExpandIncludeXY(b[geom.X], b[geom.Y], ).ExpandIncludeXY(
+	var box = a.BBox().ExpandIncludeXY(b[geom.X], b[geom.Y]).ExpandIncludeXY(
 		c[geom.X], c[geom.Y],
 	)
 	var neighbours = db.Search(*box)

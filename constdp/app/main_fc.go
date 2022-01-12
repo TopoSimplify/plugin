@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/TopoSimplify/constdp"
-	"github.com/TopoSimplify/offset"
-	"github.com/TopoSimplify/opts"
+	"github.com/TopoSimplify/plugin/constdp"
+	"github.com/TopoSimplify/plugin/offset"
+	"github.com/TopoSimplify/plugin/opts"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/iter"
 )

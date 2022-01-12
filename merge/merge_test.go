@@ -1,13 +1,13 @@
 package merge
 
 import (
-	"github.com/TopoSimplify/common"
-	"github.com/TopoSimplify/dp"
-	"github.com/TopoSimplify/hdb"
-	"github.com/TopoSimplify/node"
-	"github.com/TopoSimplify/offset"
-	"github.com/TopoSimplify/opts"
-	"github.com/TopoSimplify/split"
+	"github.com/TopoSimplify/plugin/common"
+	"github.com/TopoSimplify/plugin/dp"
+	"github.com/TopoSimplify/plugin/hdb"
+	"github.com/TopoSimplify/plugin/node"
+	"github.com/TopoSimplify/plugin/offset"
+	"github.com/TopoSimplify/plugin/opts"
+	"github.com/TopoSimplify/plugin/split"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/iter"
 	"testing"

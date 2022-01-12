@@ -1,8 +1,8 @@
 package hdb
 
 import (
+	"github.com/TopoSimplify/plugin/node"
 	"math"
-	"github.com/TopoSimplify/node"
 )
 
 //build

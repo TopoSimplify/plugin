@@ -1,8 +1,8 @@
 package lnr
 
 import (
-	"github.com/TopoSimplify/ctx"
-	"github.com/TopoSimplify/pln"
+	"github.com/TopoSimplify/plugin/ctx"
+	"github.com/TopoSimplify/plugin/pln"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/geom/index"
 	"github.com/intdxdt/geom/mono"

@@ -1,11 +1,11 @@
 package relate
 
 import (
-	"github.com/TopoSimplify/ctx"
-	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/plugin/ctx"
+	"github.com/TopoSimplify/plugin/node"
 )
 
-//Node geometric relation to other context geometries
+//IsGeomRelateValid - Node geometric relation to other context geometries
 func IsGeomRelateValid(hull *node.Node, contexts *ctx.ContextGeometries) bool {
 	var seg = hull.Segment()
 	var lnGeom = hull.Polyline.Geometry()
@@ -21,7 +21,7 @@ func IsGeomRelateValid(hull *node.Node, contexts *ctx.ContextGeometries) bool {
 		lnGInter = lnGeom.Intersects(g.Geom)
 		segGInter = segGeom.Intersects(g.Geom)
 
-		bln = !((segGInter && !lnGInter) || (!segGInter && lnGInter) )
+		bln = !((segGInter && !lnGInter) || (!segGInter && lnGInter))
 	}
 
 	return bln

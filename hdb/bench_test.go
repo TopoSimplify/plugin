@@ -1,13 +1,13 @@
 package hdb
 
 import (
-	"time"
-	"math"
-	"testing"
-	"math/rand"
-	"github.com/intdxdt/mbr"
-	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/plugin/node"
 	"github.com/intdxdt/iter"
+	"github.com/intdxdt/mbr"
+	"math"
+	"math/rand"
+	"testing"
+	"time"
 )
 
 func RandBox(size float64, rnd *rand.Rand) mbr.MBR {
@@ -30,17 +30,17 @@ func GenDataItems(N int, size float64) []mbr.MBR {
 	return data
 }
 
-var N           = int(1e6)
-var maxFill     = 64
-var BenchData   = GenDataItems(N, 1)
-var bboxes100   = GenDataItems(1000, 100*math.Sqrt(0.1))
-var bboxes10    = GenDataItems(1000, 10)
-var bboxes1     = GenDataItems(1000, 1)
+var N = int(1e6)
+var maxFill = 64
+var BenchData = GenDataItems(N, 1)
+var bboxes100 = GenDataItems(1000, 100*math.Sqrt(0.1))
+var bboxes10 = GenDataItems(1000, 10)
+var bboxes1 = GenDataItems(1000, 1)
 
 var id = iter.NewIgen(0)
 var tree = NewHdb(maxFill).loadBoxes(id, BenchData)
 
-var box_g  = []*mbr.MBR{nil }
+var box_g = []*mbr.MBR{nil}
 var foundTotal = []int{-9}
 
 func Benchmark_Insert_OneByOne_SmallBigData(b *testing.B) {

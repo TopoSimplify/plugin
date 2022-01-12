@@ -1,7 +1,7 @@
 package lnr
 
 import (
-	"github.com/TopoSimplify/pln"
+	"github.com/TopoSimplify/plugin/pln"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/geom"
 	"testing"

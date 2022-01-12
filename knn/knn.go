@@ -1,9 +1,9 @@
 package knn
 
 import (
-	"github.com/TopoSimplify/box"
-	"github.com/TopoSimplify/hdb"
-	"github.com/TopoSimplify/node"
+	"github.com/TopoSimplify/plugin/box"
+	"github.com/TopoSimplify/plugin/hdb"
+	"github.com/TopoSimplify/plugin/node"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/mbr"
 )

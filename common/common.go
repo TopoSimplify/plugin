@@ -15,7 +15,7 @@ func SortInts(iter []int) []int {
 	return iter
 }
 
-//hull geom
+//Geometry - hull geom
 func Geometry(coordinates geom.Coords) geom.Geometry {
 	var g geom.Geometry
 	if coordinates.Len() > 2 {
