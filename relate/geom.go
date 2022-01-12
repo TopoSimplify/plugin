@@ -18,8 +18,8 @@ func IsGeomRelateValid(hull *node.Node, contexts *ctx.ContextGeometries) bool {
 
 	for i, n := 0, contexts.Len(); bln && i < n; i++ {
 		g = geometries[i]
-		lnGInter = lnGeom.Intersects(g.Geom)
-		segGInter = segGeom.Intersects(g.Geom)
+		lnGInter = lnGeom.Intersects(g.Geom.Geometry())
+		segGInter = segGeom.Intersects(g.Geom.Geometry())
 
 		bln = !((segGInter && !lnGInter) || (!segGInter && lnGInter))
 	}

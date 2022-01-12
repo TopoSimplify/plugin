@@ -2,7 +2,7 @@ package opts
 
 import "encoding/json"
 
-//Opts
+//Opts - input options
 type Opts struct {
 	Threshold              float64 `json:"threshold"`
 	MinDist                float64 `json:"mindist"`

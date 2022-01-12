@@ -1,6 +1,7 @@
 package ctx
 
 import (
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/mbr"
 )
@@ -20,14 +21,14 @@ type Meta struct {
 }
 
 type ContextGeometry struct {
-	Geom    geom.Geometry
+	Geom    geometry.IGeometry
 	CtxType string
 	I       int
 	J       int
 	Meta    Meta
 }
 
-func New(g geom.Geometry, i, j int) *ContextGeometry {
+func New(g geometry.IGeometry, i, j int) *ContextGeometry {
 	return &ContextGeometry{
 		Geom:    g,
 		CtxType: Self,
@@ -39,17 +40,17 @@ func New(g geom.Geometry, i, j int) *ContextGeometry {
 
 //implements stringer interface
 func (o *ContextGeometry) String() string {
-	return o.Geom.WKT()
+	return o.Geometry().WKT()
 }
 
 //implements IGeom interface
 func (o *ContextGeometry) Geometry() geom.Geometry {
-	return o.Geom
+	return o.Geom.Geometry()
 }
 
 //BBox
 func (o *ContextGeometry) BBox() *mbr.MBR {
-	return o.Geom.BBox()
+	return o.Geom.Geometry().BBox()
 }
 
 //Bounds
@@ -59,32 +60,32 @@ func (o *ContextGeometry) Bounds() mbr.MBR {
 
 //AsLinear
 func (o *ContextGeometry) AsLinear() []*geom.LineString {
-	return o.Geom.AsLinear()
+	return o.Geom.Geometry().AsLinear()
 }
 
 //Intersects
 func (o *ContextGeometry) Intersects(other geom.Geometry) bool {
-	return o.Geom.Intersects(other)
+	return o.Geom.Geometry().Intersects(other)
 }
 
 //Intersection
 func (o *ContextGeometry) Intersection(other geom.Geometry) []geom.Point {
-	return o.Geom.Intersection(other)
+	return o.Geom.Geometry().Intersection(other)
 }
 
 //Distance
 func (o *ContextGeometry) Distance(other geom.Geometry) float64 {
-	return o.Geom.Distance(other)
+	return o.Geom.Geometry().Distance(other)
 }
 
 //Type
 func (o *ContextGeometry) Type() geom.GeoType {
-	return o.Geom.Type()
+	return o.Geom.Geometry().Type()
 }
 
 //Distance
 func (o *ContextGeometry) WKT() string {
-	return o.Geom.WKT()
+	return o.Geom.Geometry().WKT()
 }
 
 //--------------------------------------------------------------------

@@ -20,8 +20,8 @@ func IsDistRelateValid(options *opts.Opts, hull *node.Node, contexts *ctx.Contex
 
 	for i, n := 0, contexts.Len(); bln && i < n; i++ {
 		g = geometries[i]
-		original = lnGeom.Distance(g.Geom)
-		simple = segGeom.Distance(g.Geom)
+		original = lnGeom.Distance(g.Geom.Geometry())
+		simple = segGeom.Distance(g.Geom.Geometry())
 
 		//if original violates constraint, then simple can
 		// >= than original or <= original, either way should be true

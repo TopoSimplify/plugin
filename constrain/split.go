@@ -29,7 +29,7 @@ func splitAtSelfIntersects(id *iter.Igen, db *hdb.Hdb, selfInters *ctx.ContextGe
 			continue
 		}
 
-		nodes = knn.ContextNeighbours(db, inter.Geom, EpsilonDist)
+		nodes = knn.ContextNeighbours(db, inter.Geom.Geometry(), EpsilonDist)
 		for i := range nodes {
 			hull = nodes[i]
 			tokens = split.AtIndex(id, hull, idxs, common.Geometry)

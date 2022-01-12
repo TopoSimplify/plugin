@@ -3,6 +3,7 @@ package constdp
 import (
 	"github.com/TopoSimplify/plugin/ctx"
 	"github.com/TopoSimplify/plugin/dp"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/hdb"
 	"github.com/TopoSimplify/plugin/lnr"
 	"github.com/TopoSimplify/plugin/node"
@@ -11,22 +12,17 @@ import (
 	"github.com/intdxdt/geom"
 )
 
-//Type ConstDP
+//ConstDP Type
 type ConstDP struct {
 	*dp.DouglasPeucker
 	ContextDB *hdb.Hdb
 }
 
-//Creates a new constrained DP Simplification instance
+//NewConstDP - creates a new constrained DP Simplification instance
 //	dp decomposition of linear geometries
-func NewConstDP(
-	id int,
-	coordinates geom.Coords,
-	constraints []geom.Geometry,
-	options *opts.Opts,
-	offsetScore lnr.ScoreFn,
-	squareOffsetScore ...lnr.ScoreFn,
-) *ConstDP {
+func NewConstDP(id int, coordinates geom.Coords,
+	constraints []geometry.IGeometry, options *opts.Opts,
+	offsetScore lnr.ScoreFn, squareOffsetScore ...lnr.ScoreFn) *ConstDP {
 	var sqrScore lnr.ScoreFn
 	if len(squareOffsetScore) > 0 {
 		sqrScore = squareOffsetScore[0]
@@ -44,17 +40,17 @@ func NewConstDP(
 	return &instance
 }
 
-//creates constraint db from geometries
-func (self *ConstDP) BuildContextDB(geoms []geom.Geometry) *ConstDP {
+//BuildContextDB - creates constraint db from geometries
+func (cdp *ConstDP) BuildContextDB(geoms []geometry.IGeometry) *ConstDP {
 	var lst = make([]node.Node, 0, len(geoms))
 	for i := range geoms {
 		cg := ctx.New(geoms[i], 0, -1).AsContextNeighbour()
 		lst = append(lst, node.Node{
 			MBR:      cg.Bounds(),
 			Geom:     cg,
-			Instance: self,
+			Instance: cdp,
 		})
 	}
-	self.ContextDB.Clear().Load(lst)
-	return self
+	cdp.ContextDB.Clear().Load(lst)
+	return cdp
 }

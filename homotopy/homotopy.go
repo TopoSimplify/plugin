@@ -37,8 +37,8 @@ func filterContext(coordinates geom.Coords, contexts *ctx.ContextGeometries) (
 	var lnBln, simpleBln bool
 
 	for _, c := range contexts.DataView() {
-		lnBln = ln.Intersects(c.Geom)
-		simpleBln = simple.Intersects(c.Geom)
+		lnBln = ln.Intersects(c.Geom.Geometry())
+		simpleBln = simple.Intersects(c.Geom.Geometry())
 		if lnBln && simpleBln {
 			exclude.Push(c)
 		} else if !lnBln && !simpleBln {

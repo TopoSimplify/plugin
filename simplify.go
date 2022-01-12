@@ -8,8 +8,8 @@ import (
 	"github.com/intdxdt/iter"
 )
 
-func simplifyInstances(lns []geom.Coords, opts *opts.Opts, constraints []geometry.IGeometry,
-	offsetFn func(geom.Coords) (int, float64)) []geom.Coords {
+func simplifyInstances(lns []geom.Coords, opts *opts.Opts,
+	constraints []geometry.IGeometry, offsetFn func(geom.Coords) (int, float64)) []geom.Coords {
 	var id = iter.NewIgen()
 	var forest []*constdp.ConstDP
 	var junctions = make(map[int][]int, 0)

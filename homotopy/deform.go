@@ -78,7 +78,7 @@ func isTriangleCollapsible(a, b, c *geom.Point, neighbours []rtree.BoxObject) bo
 	var triangle = geom.NewPolygon(geom.Coordinates([]geom.Point{*a, *b, *c, *a}))
 	for i, n := 0, len(neighbours); bln && i < n; i++ {
 		c := neighbours[i].(*ctx.ContextGeometry)
-		bln = !triangle.Intersects(c.Geom) //disjoint
+		bln = !triangle.Intersects(c.Geom.Geometry()) //disjoint
 	}
 	return bln
 }
