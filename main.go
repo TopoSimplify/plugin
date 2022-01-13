@@ -77,6 +77,9 @@ func main() {
 	}
 	var t1 = time.Now()
 
+	var output = groupPlnsAsGeoJSONS(polylines)
+	fmt.Println(output)
+
 	log.Println(fmt.Sprintf("elapsed time: %v seconds", math.Round(t1.Sub(t0).Seconds(), 6)))
 }
 
