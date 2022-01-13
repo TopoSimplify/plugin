@@ -3,6 +3,7 @@ package merge
 import (
 	"github.com/TopoSimplify/plugin/common"
 	"github.com/TopoSimplify/plugin/dp"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/hdb"
 	"github.com/TopoSimplify/plugin/node"
 	"github.com/TopoSimplify/plugin/offset"
@@ -100,7 +101,8 @@ func TestMergeNode(t *testing.T) {
 			var wkt = "LINESTRING ( 860 390, 810 360, 770 400, 760 420, 800 440, 810 470, 850 500, 810 530, 780 570, 760 530, 720 530, 710 500, 650 450 )"
 			var coords = linearCoords(wkt)
 			var n = coords.Len() - 1
-			var homo = dp.New(id.Next(), coords, options, offset.MaxOffset)
+			var pln = geometry.CreatePolyline("0", coords, "")
+			var homo = dp.New(id.Next(), pln, options, offset.MaxOffset)
 			var hull = createHulls(id, [][]int{{0, n}}, coords, homo)[0]
 			var ha, hb = split.AtScoreSelection(id, &hull, homo.Score, hullGeom)
 			var splits = split.AtIndex(id, &hull, []int{

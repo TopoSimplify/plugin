@@ -3,7 +3,6 @@ package common
 import (
 	"github.com/TopoSimplify/plugin/lnr"
 	"github.com/TopoSimplify/plugin/node"
-	"github.com/TopoSimplify/plugin/pln"
 	"github.com/TopoSimplify/plugin/rng"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/iter"
@@ -33,7 +32,7 @@ func LinearCoords(wkt string) geom.Coords {
 }
 
 func CreateHulls(id *iter.Igen, indices [][]int, coords geom.Coords, instance lnr.Linegen) []node.Node {
-	var poly = pln.CreatePolyline(coords)
+	var poly = geom.NewLineString(coords)
 	var hulls []node.Node
 	for _, o := range indices {
 		hulls = append(hulls, nodeFromPolyline(
@@ -44,7 +43,16 @@ func CreateHulls(id *iter.Igen, indices [][]int, coords geom.Coords, instance ln
 }
 
 //New Node
-func nodeFromPolyline(id *iter.Igen,
-	polyline pln.Polyline, rng rng.Rng, geomFn func(geom.Coords) geom.Geometry, instance lnr.Linegen) node.Node {
-	return node.CreateNode(id, polyline.SubCoordinates(rng), rng, geomFn, instance)
+func nodeFromPolyline(id *iter.Igen, polyline *geom.LineString, rng rng.Rng,
+	geomFn func(geom.Coords) geom.Geometry, instance lnr.Linegen) node.Node {
+	return node.CreateNode(id, SubCoordinates(polyline, rng), rng, geomFn, instance)
+}
+
+func SubCoordinates(ln *geom.LineString, rng rng.Rng) geom.Coords {
+	var coords = ln.Coordinates
+	coords.Idxs = make([]int, 0, rng.J-rng.I+1)
+	for i := rng.I; i <= rng.J; i++ {
+		coords.Idxs = append(coords.Idxs, i)
+	}
+	return coords
 }

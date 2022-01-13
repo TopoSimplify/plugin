@@ -1,19 +1,19 @@
 package decompose
 
 import (
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/lnr"
 	"github.com/TopoSimplify/plugin/node"
 	"github.com/TopoSimplify/plugin/offset"
-	"github.com/TopoSimplify/plugin/pln"
 	"github.com/TopoSimplify/plugin/rng"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/iter"
 )
 
-//Douglas-Peucker decomposition at a given threshold
+//DouglasPeucker -  decomposition at a given threshold
 func DouglasPeucker(
 	id *iter.Igen,
-	pln pln.Polyline,
+	pln geometry.Polyline,
 	decomp offset.EpsilonDecomposition,
 	geomFn func(geom.Coords) geom.Geometry,
 	instance lnr.Linegen,

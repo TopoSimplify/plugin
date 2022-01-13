@@ -2,18 +2,18 @@ package constrain
 
 import (
 	"github.com/TopoSimplify/plugin/ctx"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/hdb"
 	"github.com/TopoSimplify/plugin/lnr"
 	"github.com/TopoSimplify/plugin/node"
 	"github.com/TopoSimplify/plugin/opts"
-	"github.com/TopoSimplify/plugin/pln"
 	"github.com/intdxdt/iter"
 	"sort"
 )
 
 //Constrain for planar self-intersection
 func ToSelfIntersects(id *iter.Igen,
-	nodes []node.Node, polyline pln.Polyline,
+	nodes []node.Node, polyline geometry.Polyline,
 	options *opts.Opts, constVerts []int,
 ) ([]node.Node, bool, []int) {
 	var atVertexSet = make(map[int]bool)
@@ -42,7 +42,7 @@ func ToSelfIntersects(id *iter.Igen,
 			continue
 		}
 		atVertexSet[i] = true
-		var pt = polyline.Coordinates.Pt(i)
+		var pt = polyline.Pt(i)
 		var cg = ctx.New(pt, 0, -1).AsPlanarVertex()
 
 		cg.Meta.Planar = append(cg.Meta.Planar, i)

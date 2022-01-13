@@ -8,8 +8,6 @@ import (
 	"github.com/TopoSimplify/plugin/lnr"
 	"github.com/TopoSimplify/plugin/node"
 	"github.com/TopoSimplify/plugin/opts"
-	"github.com/TopoSimplify/plugin/pln"
-	"github.com/intdxdt/geom"
 )
 
 //ConstDP Type
@@ -20,7 +18,7 @@ type ConstDP struct {
 
 //NewConstDP - creates a new constrained DP Simplification instance
 //	dp decomposition of linear geometries
-func NewConstDP(id int, coordinates geom.Coords,
+func NewConstDP(id int, pln geometry.Polyline,
 	constraints []geometry.IGeometry, options *opts.Opts,
 	offsetScore lnr.ScoreFn, squareOffsetScore ...lnr.ScoreFn) *ConstDP {
 	var sqrScore lnr.ScoreFn
@@ -29,14 +27,10 @@ func NewConstDP(id int, coordinates geom.Coords,
 	}
 
 	var instance = ConstDP{
-		DouglasPeucker: dp.New(id, coordinates, options, offsetScore, sqrScore),
+		DouglasPeucker: dp.New(id, pln, options, offsetScore, sqrScore),
 		ContextDB:      hdb.NewHdb(),
 	}
 	instance.BuildContextDB(constraints)
-
-	if coordinates.Len() > 1 {
-		instance.Pln = pln.CreatePolyline(coordinates)
-	}
 	return &instance
 }
 

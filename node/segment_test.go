@@ -1,7 +1,7 @@
 package node
 
 import (
-	"github.com/TopoSimplify/plugin/pln"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/rng"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/geom"
@@ -13,7 +13,7 @@ func TestHullSeg(t *testing.T) {
 	var g = goblin.Goblin(t)
 
 	var createHulls = func(ranges [][]int, coords geom.Coords) []Node {
-		var polyline = pln.CreatePolyline(coords)
+		var polyline = geometry.CreatePolyline("0", coords, "")
 		var hulls = make([]Node, 0)
 		for _, r := range ranges {
 			var i, j = r[0], r[len(r)-1]

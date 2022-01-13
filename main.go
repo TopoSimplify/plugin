@@ -41,7 +41,7 @@ func main() {
 	}
 
 	var polylines = make([]geometry.Polyline, 0)
-	var outputPolylines = make([]geometry.Polyline, 0)
+	//var outputPolylines = make([]geometry.Polyline, 0)
 
 	//lines
 	argObj.Input = strings.TrimSpace(argObj.Input)
@@ -70,9 +70,11 @@ func main() {
 
 	var t0 = time.Now()
 	if argObj.IsFeatureClass {
-		outputPolylines = simplifyFeatureClass(polylines, &options, constraints, offsetFn)
+		//outputPolylines = simplifyFeatureClass(polylines, &options, constraints, offsetFn)
+		_ = simplifyFeatureClass(polylines, &options, constraints, offsetFn)
 	} else {
-		outputPolylines = simplifyInstances(polylines, &options, constraints, offsetFn)
+		//outputPolylines = simplifyInstances(polylines, &options, constraints, offsetFn)
+		_ = simplifyInstances(polylines, &options, constraints, offsetFn)
 	}
 	var t1 = time.Now()
 

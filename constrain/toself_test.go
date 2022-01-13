@@ -2,9 +2,9 @@ package constrain
 
 import (
 	"github.com/TopoSimplify/plugin/common"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/node"
 	"github.com/TopoSimplify/plugin/opts"
-	"github.com/TopoSimplify/plugin/pln"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/iter"
 	"testing"
@@ -19,7 +19,7 @@ func TestToSelfIntersects(t *testing.T) {
 			g.Timeout(1 * time.Hour)
 			var coords = common.LinearCoords("LINESTRING ( 740 380, 720 440, 760 460, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
-			var polyline = pln.CreatePolyline(coords)
+			var polyline = geometry.CreatePolyline("0", coords, "")
 			options := &opts.Opts{
 				Threshold:              1.0,
 				MinDist:                1.0,
@@ -62,7 +62,7 @@ func TestToSelfIntersects(t *testing.T) {
 			g.Timeout(1 * time.Hour)
 			var coords = common.LinearCoords("LINESTRING ( 780 480, 750 470, 760 500, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
-			var polyline = pln.CreatePolyline(coords)
+			var polyline = geometry.CreatePolyline("0", coords, "")
 			var options = &opts.Opts{
 				Threshold:              1.0,
 				MinDist:                1.0,
@@ -108,7 +108,8 @@ func TestToSelfIntersects(t *testing.T) {
 			g.Timeout(1 * time.Hour)
 			var coords = common.LinearCoords("LINESTRING ( 740 380, 720 440, 760 460, 740 520, 860 520, 860 620, 740 620, 740 520, 640 520, 640 420, 841 420, 840 320 )")
 			//var cong = geom.NewPolygonFromWKT("POLYGON (( 780 560, 780 580, 800 580, 800 560, 780 560 ))")
-			var polyline = pln.CreatePolyline(coords)
+			//pln = geometry.CreatePolyline("0", coords, "")
+			var polyline = geometry.CreatePolyline("0", coords, "")
 			var options = &opts.Opts{
 				Threshold:              300.0,
 				MinDist:                300.0,
@@ -145,7 +146,7 @@ func TestToSelfIntersects(t *testing.T) {
 		g.It("should test constrain to self intersects - 4", func() {
 			g.Timeout(1 * time.Hour)
 			var coords = common.LinearCoords("LINESTRING ( 300 0, 300 400, 600 600, 600 1000, 900 1000, 900 700, 1300 700, 1400 400, 1600 200, 1300 0, 800 100, 300 0 )")
-			var polyline = pln.CreatePolyline(coords)
+			var polyline = geometry.CreatePolyline("0", coords, "")
 			var options = &opts.Opts{
 				Threshold:              300.0,
 				MinDist:                300.0,

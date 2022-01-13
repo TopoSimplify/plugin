@@ -2,15 +2,15 @@ package lnr
 
 import (
 	"github.com/TopoSimplify/plugin/ctx"
-	"github.com/TopoSimplify/plugin/pln"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/geom/index"
 	"github.com/intdxdt/geom/mono"
 	"github.com/intdxdt/iter"
 )
 
-//Planar and non-planar intersections
-func SelfIntersection(polyline pln.Polyline, planar, nonPlanar bool) *ctx.ContextGeometries {
+//SelfIntersection - Planar and non-planar intersections
+func SelfIntersection(polyline geometry.Polyline, planar, nonPlanar bool) *ctx.ContextGeometries {
 	var inters = ctx.NewContexts()
 	if planar {
 		inters.Extend(planarIntersects(polyline).DataView())
@@ -22,7 +22,7 @@ func SelfIntersection(polyline pln.Polyline, planar, nonPlanar bool) *ctx.Contex
 }
 
 //Planar self-intersection
-func planarIntersects(polyline pln.Polyline) *ctx.ContextGeometries {
+func planarIntersects(polyline geometry.Polyline) *ctx.ContextGeometries {
 	var points = make([]vertex, 0, polyline.Coordinates.Len())
 	for i := range polyline.Coordinates.Idxs {
 		points = append(points, vertex{polyline.Pt(i), i, NullFId})
@@ -60,7 +60,7 @@ func planarIntersects(polyline pln.Polyline) *ctx.ContextGeometries {
 	return results
 }
 
-func nonPlanarIntersection(polyline pln.Polyline) *ctx.ContextGeometries {
+func nonPlanarIntersection(polyline geometry.Polyline) *ctx.ContextGeometries {
 	var s *mono.MBR
 	var cache = make(map[[4]int]bool)
 	var tree, data = segmentDB(polyline)
@@ -110,7 +110,7 @@ func cacheKey(a, b *mono.MBR) [4]int {
 	return [4]int{a.I, a.J, b.I, b.J}
 }
 
-func segmentDB(polyline pln.Polyline) (*index.Index, []mono.MBR) {
+func segmentDB(polyline geometry.Polyline) (*index.Index, []mono.MBR) {
 	var tree = index.NewIndex()
 	var data = polyline.SegmentBounds()
 	tree.Load(data)

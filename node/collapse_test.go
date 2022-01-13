@@ -1,7 +1,7 @@
 package node
 
 import (
-	"github.com/TopoSimplify/plugin/pln"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/rng"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/geom"
@@ -42,7 +42,7 @@ func TestCollapsible(t *testing.T) {
 			for _, o := range lnwkts {
 				k, bln, wkt := o.k, o.bln, o.wkt
 				var coords = geom.NewLineStringFromWKT(wkt).Coordinates
-				var poly = pln.CreatePolyline(coords)
+				var poly = geometry.CreatePolyline("0", coords, "")
 				var n = coords.Len() - 1
 				var rngA, rngB = rng.Range(0, k), rng.Range(k, n)
 				var ha, hb = nodeFromPolyline(&poly, rngA, fn), nodeFromPolyline(&poly, rngB, fn)
@@ -56,7 +56,7 @@ func TestCollapsible(t *testing.T) {
 			var coords = geom.NewLineStringFromWKT(wkt).Coordinates
 			var k1, k2, k3, k4 = 6, 10, 14, 18
 			var n = coords.Len() - 1
-			var polyline = pln.CreatePolyline(coords)
+			var polyline = geometry.CreatePolyline("0", coords, "")
 
 			var h1 = nodeFromPolyline(&polyline, rng.Range(0, k1), fn)
 			var h2 = nodeFromPolyline(&polyline, rng.Range(k1, k2), fn)

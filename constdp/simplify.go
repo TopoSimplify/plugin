@@ -24,7 +24,7 @@ func (self *ConstDP) Simplify(id *iter.Igen, constVertices ...[]int) *ConstDP {
 
 	// constrain hulls to self intersects
 	self.Hulls, _, constVertexSet = constrain.ToSelfIntersects(
-		id, self.Hulls, self.Polyline(), self.Options(), constVerts,
+		id, self.Hulls, self.Polyline, self.Options(), constVerts,
 	)
 
 	var db = hdb.NewHdb()

@@ -8,15 +8,15 @@ import (
 	"github.com/intdxdt/iter"
 )
 
-func simplifyInstances(lns []geometry.Polyline, opts *opts.Opts,
+func simplifyInstances(plns []geometry.Polyline, opts *opts.Opts,
 	constraints []geometry.IGeometry, offsetFn func(geom.Coords) (int, float64)) []geom.Coords {
 	var id = iter.NewIgen()
 	var forest []*constdp.ConstDP
 	var junctions = make(map[int][]int, 0)
 
-	for _, ln := range lns {
+	for _, pln := range plns {
 		forest = append(forest, constdp.NewConstDP(
-			id.Next(), ln, constraints, opts, offsetFn,
+			id.Next(), pln, constraints, opts, offsetFn,
 		))
 	}
 	constdp.SimplifyInstances(id, forest, junctions)

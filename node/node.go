@@ -2,7 +2,6 @@ package node
 
 import (
 	"github.com/TopoSimplify/plugin/lnr"
-	"github.com/TopoSimplify/plugin/pln"
 	"github.com/TopoSimplify/plugin/rng"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/iter"
@@ -12,7 +11,7 @@ import (
 // Node Type
 type Node struct {
 	Id       int
-	Polyline pln.Polyline
+	Polyline *geom.LineString
 	Range    rng.Rng
 	MBR      mbr.MBR
 	Geom     geom.Geometry
@@ -25,7 +24,7 @@ func CreateNode(id *iter.Igen, coordinates geom.Coords, rng rng.Rng,
 	var g = geomFn(geom.ConvexHull(coordinates))
 	return Node{
 		Id:       id.Next(),
-		Polyline: pln.CreatePolyline(coordinates),
+		Polyline: geom.NewLineString(coordinates),
 		Range:    rng,
 		MBR:      g.Bounds(),
 		Geom:     g,
@@ -76,11 +75,11 @@ func (node *Node) Segment() *geom.Segment {
 }
 
 // hull segment as polyline
-func (node *Node) SegmentAsPolyline() pln.Polyline {
-	var n = node.Polyline.Len()
+func (node *Node) SegmentAsPolyline() *geom.LineString {
+	var n = node.Polyline.Coordinates.Len() //ln.Coordinates.Len()
 	var coords = node.Polyline.Coordinates
 	coords.Idxs = []int{coords.Idxs[0], coords.Idxs[n-1]}
-	return pln.CreatePolyline(coords)
+	return geom.NewLineString(coords)
 }
 
 //SegmentPoints - segment points

@@ -3,11 +3,11 @@ package dp
 import (
 	"github.com/TopoSimplify/plugin/common"
 	"github.com/TopoSimplify/plugin/decompose"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/lnr"
 	"github.com/TopoSimplify/plugin/node"
 	"github.com/TopoSimplify/plugin/offset"
 	"github.com/TopoSimplify/plugin/opts"
-	"github.com/TopoSimplify/plugin/pln"
 	"github.com/TopoSimplify/plugin/state"
 	"github.com/intdxdt/cmp"
 	"github.com/intdxdt/geom"
@@ -15,11 +15,11 @@ import (
 	"github.com/intdxdt/sset"
 )
 
-//Type DP
+//DouglasPeucker Type
 type DouglasPeucker struct {
 	id          int
 	Hulls       []node.Node
-	Pln         pln.Polyline
+	Polyline    geometry.Polyline
 	Meta        map[string]interface{}
 	Opts        *opts.Opts
 	Score       lnr.ScoreFn
@@ -28,15 +28,13 @@ type DouglasPeucker struct {
 	state       state.State
 }
 
-//Creates a new constrained DP Simplification instance
+//New DP - creates a new constrained DP Simplification instance
 func New(
 	id int,
-	coordinates geom.Coords,
+	pln geometry.Polyline,
 	options *opts.Opts,
 	offsetScore lnr.ScoreFn,
-	squareOffsetScore ...lnr.ScoreFn,
-) *DouglasPeucker {
-
+	squareOffsetScore ...lnr.ScoreFn) *DouglasPeucker {
 	var sqrScore lnr.ScoreFn
 	if len(squareOffsetScore) > 0 {
 		sqrScore = squareOffsetScore[0]
@@ -44,6 +42,7 @@ func New(
 
 	var instance = DouglasPeucker{
 		id:          id,
+		Polyline:    pln,
 		Opts:        options,
 		Meta:        make(map[string]interface{}, 0),
 		SimpleSet:   sset.NewSSet(cmp.Int),
@@ -51,9 +50,6 @@ func New(
 		SquareScore: sqrScore,
 	}
 
-	if coordinates.Len() > 1 {
-		instance.Pln = pln.CreatePolyline(coordinates)
-	}
 	return &instance
 }
 
@@ -74,7 +70,7 @@ func (dp *DouglasPeucker) Decompose(id *iter.Igen) []node.Node {
 	}
 	var decomp = offset.EpsilonDecomposition{ScoreFn: score, Relation: relation}
 	return decompose.DouglasPeucker(
-		id, dp.Polyline(), decomp, common.Geometry, dp,
+		id, dp.Polyline, decomp, common.Geometry, dp,
 	)
 }
 
@@ -110,9 +106,5 @@ func (dp *DouglasPeucker) Options() *opts.Opts {
 }
 
 func (dp *DouglasPeucker) Coordinates() geom.Coords {
-	return dp.Pln.Coordinates
-}
-
-func (dp *DouglasPeucker) Polyline() pln.Polyline {
-	return dp.Pln
+	return dp.Polyline.Coordinates
 }

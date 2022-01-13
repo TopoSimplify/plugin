@@ -9,19 +9,15 @@ import (
 
 //Polyline Type
 type Polyline struct {
-	G    *geom.LineString
-	Id   string
-	Meta string
-}
-
-//Geometry interface
-func (pln Polyline) Geometry() geom.Geometry {
-	return pln.G
+	*geom.LineString
+	Id     string
+	Meta   string
+	Simple []int
 }
 
 //CreatePolyline construct new polyline
 func CreatePolyline(id string, coordinates geom.Coords, meta string) Polyline {
-	return Polyline{geom.NewLineString(coordinates), id, meta}
+	return Polyline{geom.NewLineString(coordinates), id, meta, []int{}}
 }
 
 //SegmentBounds computes segment bounds
@@ -31,8 +27,8 @@ func (pln *Polyline) SegmentBounds() []mono.MBR {
 	var a, b *geom.Point
 	var items = make([]mono.MBR, 0, n)
 	for i := 0; i < n; i++ {
-		a, b = pln.G.Coordinates.Pt(i), pln.G.Coordinates.Pt(i+1)
-		I, J = pln.G.Coordinates.Idxs[i], pln.G.Coordinates.Idxs[i+1]
+		a, b = pln.Coordinates.Pt(i), pln.Coordinates.Pt(i+1)
+		I, J = pln.Coordinates.Idxs[i], pln.Coordinates.Idxs[i+1]
 		items = append(items, mono.MBR{
 			MBR: mbr.CreateMBR(a[geom.X], a[geom.Y], b[geom.X], b[geom.Y]),
 			I:   I, J: J,
@@ -43,12 +39,12 @@ func (pln *Polyline) SegmentBounds() []mono.MBR {
 
 //Range of entire polyline
 func (pln *Polyline) Range() rng.Rng {
-	return rng.Range(pln.G.Coordinates.FirstIndex(), pln.G.Coordinates.LastIndex())
+	return rng.Range(pln.Coordinates.FirstIndex(), pln.Coordinates.LastIndex())
 }
 
 //Segment given range
 func (pln *Polyline) Segment(i, j int) *geom.Segment {
-	return geom.NewSegment(pln.G.Coordinates, i, j)
+	return geom.NewSegment(pln.Coordinates, i, j)
 }
 
 //SubPolyline - generates sub polyline from generator indices
@@ -58,7 +54,7 @@ func (pln *Polyline) SubPolyline(rng rng.Rng) Polyline {
 
 //SubCoordinates - generates sub polyline from generator indices
 func (pln *Polyline) SubCoordinates(rng rng.Rng) geom.Coords {
-	var coords = pln.G.Coordinates
+	var coords = pln.Coordinates
 	coords.Idxs = make([]int, 0, rng.J-rng.I+1)
 	for i := rng.I; i <= rng.J; i++ {
 		coords.Idxs = append(coords.Idxs, i)
@@ -68,5 +64,5 @@ func (pln *Polyline) SubCoordinates(rng rng.Rng) geom.Coords {
 
 //Len - number of coordinates in polyline
 func (pln *Polyline) Len() int {
-	return pln.G.Coordinates.Len()
+	return pln.Coordinates.Len()
 }

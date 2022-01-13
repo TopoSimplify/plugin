@@ -23,6 +23,6 @@ func (self *ConstDP) Decompose(id *iter.Igen) []node.Node {
 	}
 
 	return decompose.DouglasPeucker(
-		id, self.Polyline(), decomp, common.Geometry, self,
+		id, self.Polyline, decomp, common.Geometry, self,
 	)
 }

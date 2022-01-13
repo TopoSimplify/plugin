@@ -1,8 +1,8 @@
 package lnr
 
 import (
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/opts"
-	"github.com/TopoSimplify/plugin/pln"
 	"github.com/TopoSimplify/plugin/state"
 	"github.com/intdxdt/geom"
 )
@@ -18,7 +18,7 @@ type ScoreFn func(geom.Coords) (int, float64)
 
 type Polygonal interface {
 	Coordinates() []*geom.Point
-	Polyline() *pln.Polyline
+	Polyline() *geometry.Polyline
 }
 
 type Linegen interface {
