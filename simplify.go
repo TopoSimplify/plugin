@@ -8,8 +8,8 @@ import (
 	"github.com/intdxdt/iter"
 )
 
-func simplifyInstances(plns []geometry.Polyline, opts *opts.Opts,
-	constraints []geometry.IGeometry, offsetFn func(geom.Coords) (int, float64)) []geom.Coords {
+func simplifyInstances(plns []*geometry.Polyline, opts *opts.Opts,
+	constraints []geometry.IGeometry, offsetFn func(geom.Coords) (int, float64)) {
 	var id = iter.NewIgen()
 	var forest []*constdp.ConstDP
 	var junctions = make(map[int][]int, 0)
@@ -19,14 +19,14 @@ func simplifyInstances(plns []geometry.Polyline, opts *opts.Opts,
 			id.Next(), pln, constraints, opts, offsetFn,
 		))
 	}
-	constdp.SimplifyInstances(id, forest, junctions)
 
-	return extractSimpleSegs(forest)
+	constdp.SimplifyInstances(id, forest, junctions)
+	setSimpleIndices(forest)
 }
 
 func simplifyFeatureClass(
-	lns []geometry.Polyline, opts *opts.Opts, constraints []geometry.IGeometry,
-	offsetFn func(geom.Coords) (int, float64)) []geom.Coords {
+	lns []*geometry.Polyline, opts *opts.Opts, constraints []geometry.IGeometry,
+	offsetFn func(geom.Coords) (int, float64)) {
 	var id = iter.NewIgen()
 	var forest []*constdp.ConstDP
 	for _, ln := range lns {
@@ -36,18 +36,14 @@ func simplifyFeatureClass(
 	}
 
 	constdp.SimplifyFeatureClass(id, forest, opts)
-	return extractSimpleSegs(forest)
+	setSimpleIndices(forest)
 }
 
-func extractSimpleSegs(forest []*constdp.ConstDP) []geom.Coords {
-	var simpleCoords []geom.Coords
+func setSimpleIndices(forest []*constdp.ConstDP) {
 	for _, tree := range forest {
-		var coords = tree.Coordinates().Clone()
-		coords.Idxs = make([]int, 0, tree.SimpleSet.Size())
+		tree.Polyline.Simple = make([]int, 0, tree.SimpleSet.Size())
 		for _, o := range tree.SimpleSet.Values() {
-			coords.Idxs = append(coords.Idxs, o.(int))
+			tree.Polyline.Simple = append(tree.Polyline.Simple, o.(int))
 		}
-		simpleCoords = append(simpleCoords, coords)
 	}
-	return simpleCoords
 }

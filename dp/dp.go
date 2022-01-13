@@ -19,7 +19,7 @@ import (
 type DouglasPeucker struct {
 	id          int
 	Hulls       []node.Node
-	Polyline    geometry.Polyline
+	Polyline    *geometry.Polyline
 	Meta        map[string]interface{}
 	Opts        *opts.Opts
 	Score       lnr.ScoreFn
@@ -31,7 +31,7 @@ type DouglasPeucker struct {
 //New DP - creates a new constrained DP Simplification instance
 func New(
 	id int,
-	pln geometry.Polyline,
+	pln *geometry.Polyline,
 	options *opts.Opts,
 	offsetScore lnr.ScoreFn,
 	squareOffsetScore ...lnr.ScoreFn) *DouglasPeucker {

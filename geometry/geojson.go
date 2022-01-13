@@ -36,7 +36,7 @@ type JSONPolygon struct {
 	Meta        string
 }
 
-func ReadInputPolylines(inputJsonFile string) []Polyline {
+func ReadInputPolylines(inputJsonFile string) []*Polyline {
 	var tokens = readJsonFile(inputJsonFile)
 	return parseInputLinearFeatures(tokens)
 }
@@ -46,8 +46,8 @@ func ReadInputConstraints(inputJsonFile string) []IGeometry {
 	return parseConstraintFeatures(tokens)
 }
 
-func parseInputLinearFeatures(inputs []string) []Polyline {
-	var plns = make([]Polyline, 0, len(inputs))
+func parseInputLinearFeatures(inputs []string) []*Polyline {
+	var plns = make([]*Polyline, 0, len(inputs))
 
 	for idx, fjson := range inputs {
 		var jtype JSONType
@@ -103,8 +103,8 @@ func parseConstraintFeatures(inputs []string) []IGeometry {
 	return geometries
 }
 
-func createPolylineGeoms(idx int, feat *geojson.Feature) []Polyline {
-	var geometries = make([]Polyline, 0)
+func createPolylineGeoms(idx int, feat *geojson.Feature) []*Polyline {
+	var geometries = make([]*Polyline, 0)
 	if feat.Geometry.IsLineString() || feat.Geometry.IsMultiLineString() {
 		var objs = lineStringFromFeature(idx, feat)
 		for _, o := range objs {
@@ -139,7 +139,7 @@ func createPoint(jsonLine JSONPoint) Point {
 	return CreatePoint(jsonLine.Id, jsonLine.Coordinates, jsonLine.Meta)
 }
 
-func createPolyline(jsonLine JSONLineString) Polyline {
+func createPolyline(jsonLine JSONLineString) *Polyline {
 	var coords = geom.AsCoordinates(jsonLine.Coordinates)
 	return CreatePolyline(jsonLine.Id, coords, jsonLine.Meta)
 }

@@ -18,7 +18,7 @@ type ConstDP struct {
 
 //NewConstDP - creates a new constrained DP Simplification instance
 //	dp decomposition of linear geometries
-func NewConstDP(id int, pln geometry.Polyline,
+func NewConstDP(id int, pln *geometry.Polyline,
 	constraints []geometry.IGeometry, options *opts.Opts,
 	offsetScore lnr.ScoreFn, squareOffsetScore ...lnr.ScoreFn) *ConstDP {
 	var sqrScore lnr.ScoreFn

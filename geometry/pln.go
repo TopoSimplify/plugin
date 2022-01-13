@@ -16,8 +16,8 @@ type Polyline struct {
 }
 
 //CreatePolyline construct new polyline
-func CreatePolyline(id string, coordinates geom.Coords, meta string) Polyline {
-	return Polyline{geom.NewLineString(coordinates), id, meta, []int{}}
+func CreatePolyline(id string, coordinates geom.Coords, meta string) *Polyline {
+	return &Polyline{geom.NewLineString(coordinates), id, meta, nil}
 }
 
 //SegmentBounds computes segment bounds
@@ -48,7 +48,7 @@ func (pln *Polyline) Segment(i, j int) *geom.Segment {
 }
 
 //SubPolyline - generates sub polyline from generator indices
-func (pln *Polyline) SubPolyline(rng rng.Rng) Polyline {
+func (pln *Polyline) SubPolyline(rng rng.Rng) *Polyline {
 	return CreatePolyline(pln.Id, pln.SubCoordinates(rng), pln.Meta)
 }
 

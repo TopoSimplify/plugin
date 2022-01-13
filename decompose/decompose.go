@@ -13,7 +13,7 @@ import (
 //DouglasPeucker -  decomposition at a given threshold
 func DouglasPeucker(
 	id *iter.Igen,
-	pln geometry.Polyline,
+	pln *geometry.Polyline,
 	decomp offset.EpsilonDecomposition,
 	geomFn func(geom.Coords) geom.Geometry,
 	instance lnr.Linegen,
