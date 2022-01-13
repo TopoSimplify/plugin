@@ -1,6 +1,7 @@
 package constdp
 
 import (
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/offset"
 	"github.com/TopoSimplify/plugin/opts"
 	"github.com/franela/goblin"
@@ -18,7 +19,7 @@ func TestConstDP_FC(t *testing.T) {
 		"POLYGON (( 435.6413255044321 1244.880520473631, 435.6413255044321 1313.5981136783437, 529.8098791553348 1313.5981136783437, 529.8098791553348 1244.880520473631, 435.6413255044321 1244.880520473631 ))",
 		"POLYGON (( 700 827.4847691561165, 700 900, 763.9587152602818 900, 763.9587152602818 827.4847691561165, 700 827.4847691561165 ))",
 	}
-	var constraints = make([]geom.Geometry, 0)
+	var constraints = make([]geometry.IGeometry, 0)
 	for _, wkt := range wkts {
 		constraints = append(constraints, geom.ReadGeometry(wkt))
 	}
@@ -39,7 +40,8 @@ func TestConstDP_FC(t *testing.T) {
 	var simplifyForest = func(lns []*geom.LineString, opts *opts.Opts) []*geom.LineString {
 		var forest []*ConstDP
 		for _, l := range lns {
-			dp := NewConstDP(id.Next(), l.Coordinates, constraints, opts, offset.MaxOffset, offset.SquareMaxOffset)
+			var pln = &geometry.Polyline{l, "0", "", nil}
+			dp := NewConstDP(id.Next(), pln, constraints, opts, offset.MaxOffset, offset.SquareMaxOffset)
 			forest = append(forest, dp)
 		}
 
@@ -50,7 +52,8 @@ func TestConstDP_FC(t *testing.T) {
 	var simplifyInIsolation = func(lns []*geom.LineString, opts *opts.Opts) []*geom.LineString {
 		var forest []*ConstDP
 		for _, l := range lns {
-			dp := NewConstDP(id.Next(), l.Coordinates, constraints, opts, offset.MaxOffset, offset.SquareMaxOffset)
+			var pln = &geometry.Polyline{l, "0", "", nil}
+			dp := NewConstDP(id.Next(), pln, constraints, opts, offset.MaxOffset, offset.SquareMaxOffset)
 			forest = append(forest, dp)
 		}
 
@@ -117,7 +120,7 @@ func TestConstDP_FC(t *testing.T) {
 				"LINESTRING ( 100 200, 0 300, 100 500, 100 700, 300 800, 300 1100, 333.48668893714955 1263.8423649803672, 400 1300, 800 1100, 1100 1100, 1100 900, 1200 900, 1300 700, 1600 700, 1500 500, 1700 400, 1630.634600565117 122.53840226046754, 1600 0, 1100 -200, 600 -200 )",
 				"LINESTRING ( 100 -100, -100 0, -100 100, -200 200, -200 400, -400 500, -500 400, -600 300, -500 100, -300 100, -200 400, -300 700, -200 800, -200 900, 0 800, 300 1100, 300 1300, 600 1400, 900 1500, 1100 1300, 1400 900, 1700 900, 1800 600, 1800 -200 )",
 			}
-			var constraints []geom.Geometry
+			var constraints []geometry.IGeometry
 			constraints = append(constraints, geom.CreatePoint([]float64{1400, 1000}))
 			var plns = make([]*geom.LineString, 0)
 			for _, wkt := range wkts {
@@ -137,7 +140,8 @@ func TestConstDP_FC(t *testing.T) {
 			//gs := simplify_forest(plns, options)
 			var forest []*ConstDP
 			for _, l := range plns {
-				dp := NewConstDP(id.Next(), l.Coordinates, constraints, options, offset.MaxOffset, offset.SquareMaxOffset)
+				var pln = &geometry.Polyline{l, "0", "", nil}
+				dp := NewConstDP(id.Next(), pln, constraints, options, offset.MaxOffset, offset.SquareMaxOffset)
 				forest = append(forest, dp)
 			}
 

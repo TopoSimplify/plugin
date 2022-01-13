@@ -3,6 +3,7 @@ package constrain
 import (
 	"github.com/TopoSimplify/plugin/common"
 	"github.com/TopoSimplify/plugin/dp"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/hdb"
 	"github.com/TopoSimplify/plugin/node"
 	"github.com/TopoSimplify/plugin/offset"
@@ -22,7 +23,8 @@ func TestByFeatureClassIntersection(t *testing.T) {
 
 			var options = &opts.Opts{MinDist: 10}
 			var coords = common.LinearCoords("LINESTRING ( 780 600, 740 620, 720 660, 720 700, 760 740, 820 760, 860 740, 880 720, 900 700, 880 660, 840 680, 820 700, 800 720, 760 700, 780 660, 820 640, 840 620, 860 580, 880 620, 820 660 )")
-			var inst = dp.New(id.Next(), coords, options, offset.MaxOffset)
+			var pln = geometry.CreatePolyline("0", coords, "")
+			var inst = dp.New(id.Next(), pln, options, offset.MaxOffset)
 			var hulls = common.CreateHulls(id,
 				[][]int{{0, 3}, {3, 8}, {8, 13}, {13, 17}, {17, coords.Len() - 1}}, coords, inst)
 

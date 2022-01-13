@@ -1,9 +1,9 @@
 package decompose
 
 import (
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/lnr"
 	"github.com/TopoSimplify/plugin/opts"
-	"github.com/TopoSimplify/plugin/pln"
 	"github.com/TopoSimplify/plugin/state"
 	"github.com/intdxdt/deque"
 	"github.com/intdxdt/geom"
@@ -28,7 +28,7 @@ func hullGeom(coords geom.Coords) geom.Geometry {
 type dpTest struct {
 	id        int
 	Hulls     *deque.Deque
-	Pln       pln.Polyline
+	Pln       *geometry.Polyline
 	Meta      map[string]interface{}
 	Opts      *opts.Opts
 	ScoreFn   lnr.ScoreFn
@@ -60,6 +60,6 @@ func (self *dpTest) Coordinates() geom.Coords {
 	return self.Pln.Coordinates
 }
 
-func (self *dpTest) Polyline() pln.Polyline {
+func (self *dpTest) Polyline() *geometry.Polyline {
 	return self.Pln
 }

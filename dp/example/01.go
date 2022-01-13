@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/TopoSimplify/plugin/dp"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/offset"
 	"github.com/TopoSimplify/plugin/opts"
 	"github.com/intdxdt/geom"
@@ -16,7 +17,8 @@ func main() {
 	//var g = geom.readwkt(gstr)
 	var options = &opts.Opts{Threshold: 0.6}
 	var coords = geom.Coordinates(data)
-	var tree = dp.New(0, coords, options, offset.MaxOffset)
+	var pln = geometry.CreatePolyline("0", coords, "")
+	var tree = dp.New(0, pln, options, offset.MaxOffset)
 	var id = iter.NewIgen()
 
 	var o = geom.NewLineString(tree.Coordinates())

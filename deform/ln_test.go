@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"github.com/TopoSimplify/plugin/common"
 	"github.com/TopoSimplify/plugin/dp"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/hdb"
 	"github.com/TopoSimplify/plugin/node"
 	"github.com/TopoSimplify/plugin/offset"
 	"github.com/TopoSimplify/plugin/opts"
-	"github.com/TopoSimplify/plugin/pln"
 	"github.com/TopoSimplify/plugin/rng"
 	"github.com/TopoSimplify/plugin/state"
 	"github.com/franela/goblin"
@@ -74,7 +74,7 @@ func TestDeform(t *testing.T) {
 	var createHullsDbTest = func(ranges [][]int, coordinates geom.Coords) ([]node.Node, *hdb.Hdb) {
 		var inst = &testDP{0}
 		var n = coordinates.Len()
-		var polyline = pln.CreatePolyline(coordinates)
+		var polyline = geometry.CreatePolyline("0", coordinates, "")
 		var hulls []node.Node
 		for _, r := range ranges {
 			var i, j = r[0], r[len(r)-1]

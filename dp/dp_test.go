@@ -1,6 +1,7 @@
 package dp
 
 import (
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/offset"
 	"github.com/TopoSimplify/plugin/opts"
 	"github.com/franela/goblin"
@@ -20,7 +21,8 @@ func TestDP(t *testing.T) {
 
 			var data = []geom.Point{{0.5, 1.0}, {1.0, 2.0}, {1.0, 0.4}, {2.0, 1.4}, {2.0, 0.8}, {2.5, 1.0}}
 			var options = &opts.Opts{}
-			var tree = New(id.Next(), geom.Coordinates(data), options, offset.MaxOffset, offset.SquareMaxOffset)
+			var pln = geometry.CreatePolyline("0", geom.Coordinates(data), "")
+			var tree = New(id.Next(), pln, options, offset.MaxOffset, offset.SquareMaxOffset)
 			tree.Simplify(id)
 			g.Assert(tree.State().IsDirty()).IsTrue()
 			g.Assert(tree.Simple()).Eql([]int{0, 1, 2, 3, 4, 5})
@@ -40,7 +42,8 @@ func TestDP2(t *testing.T) {
 			}
 			var options = &opts.Opts{Threshold: 0}
 			//var tree = New(id.Next(), geom.Coordinates(data), options,  offset.MaxOffset, offset.SquareMaxOffset)
-			var tree = New(id.Next(), geom.Coordinates(data), options, offset.MaxOffset)
+			var pln = geometry.CreatePolyline("0", geom.Coordinates(data), "")
+			var tree = New(id.Next(), pln, options, offset.MaxOffset)
 			tree.Simplify(id)
 			g.Assert(tree.Simple()).Eql([]int{0, 1, 2, 3, 4, 5, 6})
 			options.Threshold = 1
@@ -68,7 +71,8 @@ func TestDP2(t *testing.T) {
 					{2, 0}, {4, 0}, {4, 1}, {4, 2}, {6, 2}, {8, 2}, {10, 2},
 					{10, 1}, {10, 0}, {11, 0}, {12, 0}}
 				var options = &opts.Opts{}
-				var tree = New(id.Next(), geom.Coordinates(data), options, offset.MaxOffset)
+				var pln = geometry.CreatePolyline("0", geom.Coordinates(data), "")
+				var tree = New(id.Next(), pln, options, offset.MaxOffset)
 				tree.Simplify(id)
 				g.Assert(tree.Simple()).Eql([]int{0, 1, 3, 6, 8, 10})
 			})
@@ -78,7 +82,8 @@ func TestDP2(t *testing.T) {
 			g.It("dp with empty data", func() {
 				var data []geom.Point
 				var options = &opts.Opts{}
-				var tree = New(id.Next(), geom.Coordinates(data), options, offset.MaxOffset)
+				var pln = geometry.CreatePolyline("0", geom.Coordinates(data), "")
+				var tree = New(id.Next(), pln, options, offset.MaxOffset)
 				tree.Simplify(id)
 				g.Assert(tree.Simple()).Eql([]int{})
 			})
@@ -86,7 +91,8 @@ func TestDP2(t *testing.T) {
 			g.It("dp with one coordinate item", func() {
 				var data = []geom.Point{{3.0, 1.6}}
 				var options = &opts.Opts{}
-				var tree = New(id.Next(), geom.Coordinates(data), options, offset.MaxOffset)
+				var pln = geometry.CreatePolyline("0", geom.Coordinates(data), "")
+				var tree = New(id.Next(), pln, options, offset.MaxOffset)
 				tree.Simplify(id)
 				g.Assert(tree.Simple()).Eql([]int{})
 				options.Threshold = 1
@@ -96,7 +102,8 @@ func TestDP2(t *testing.T) {
 			g.It("dp with two coordinate items", func() {
 				var data = []geom.Point{{3.0, 1.6}, {3.0, 2.0}}
 				var options = &opts.Opts{}
-				var tree = New(id.Next(), geom.Coordinates(data), options, offset.MaxOffset)
+				var pln = geometry.CreatePolyline("0", geom.Coordinates(data), "")
+				var tree = New(id.Next(), pln, options, offset.MaxOffset)
 				tree.Simplify(id)
 				g.Assert(tree.Simple()).Eql([]int{0, 1})
 			})

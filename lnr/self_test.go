@@ -1,15 +1,15 @@
 package lnr
 
 import (
-	"github.com/TopoSimplify/plugin/pln"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/geom"
 	"testing"
 	"time"
 )
 
-func newPolyline(wkt string) pln.Polyline {
-	return pln.CreatePolyline(geom.NewLineStringFromWKT(wkt).Coordinates)
+func newPolyline(wkt string) *geometry.Polyline {
+	return geometry.CreatePolyline("0", geom.NewLineStringFromWKT(wkt).Coordinates, "")
 }
 
 func TestToSelfIntersects(t *testing.T) {

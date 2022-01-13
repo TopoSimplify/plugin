@@ -1,12 +1,12 @@
 package knn
 
 import (
-	"github.com/TopoSimplify/common"
-	"github.com/TopoSimplify/hdb"
-	"github.com/TopoSimplify/lnr"
-	"github.com/TopoSimplify/node"
-	"github.com/TopoSimplify/pln"
-	"github.com/TopoSimplify/rng"
+	"github.com/TopoSimplify/plugin/common"
+	"github.com/TopoSimplify/plugin/geometry"
+	"github.com/TopoSimplify/plugin/hdb"
+	"github.com/TopoSimplify/plugin/lnr"
+	"github.com/TopoSimplify/plugin/node"
+	"github.com/TopoSimplify/plugin/rng"
 	"github.com/franela/goblin"
 	"github.com/intdxdt/geom"
 	"github.com/intdxdt/iter"
@@ -20,7 +20,7 @@ func linearCoords(wkt string) geom.Coords {
 }
 
 func createNodes(id *iter.Igen, indxs [][]int, coords geom.Coords, instance lnr.Linegen) []node.Node {
-	var poly = pln.CreatePolyline(coords)
+	var poly = geometry.CreatePolyline("0", coords, "")
 	var hulls = make([]node.Node, 0, len(indxs))
 	for i := range indxs {
 		var r = rng.Range(indxs[i][0], indxs[i][1])

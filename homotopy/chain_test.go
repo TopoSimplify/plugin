@@ -1,11 +1,11 @@
 package homotopy
 
 import (
-	"time"
-	"testing"
+	"github.com/TopoSimplify/plugin/ctx"
 	"github.com/franela/goblin"
-	"github.com/TopoSimplify/ctx"
 	"github.com/intdxdt/geom"
+	"testing"
+	"time"
 )
 
 func reverse(coordinates geom.Coords) geom.Coords {
@@ -14,7 +14,6 @@ func reverse(coordinates geom.Coords) geom.Coords {
 	}
 	return coordinates
 }
-
 
 func contextGeoms(wkts []string) *ctx.ContextGeometries {
 	var contexts = ctx.NewContexts()

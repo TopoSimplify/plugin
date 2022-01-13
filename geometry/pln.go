@@ -17,6 +17,9 @@ type Polyline struct {
 
 //CreatePolyline construct new polyline
 func CreatePolyline(id string, coordinates geom.Coords, meta string) *Polyline {
+	if coordinates.Len() < 2 {
+		return &Polyline{nil, id, meta, nil}
+	}
 	return &Polyline{geom.NewLineString(coordinates), id, meta, nil}
 }
 

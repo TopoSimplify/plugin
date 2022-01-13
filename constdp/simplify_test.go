@@ -3,6 +3,7 @@ package constdp
 import (
 	"bytes"
 	"fmt"
+	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/TopoSimplify/plugin/offset"
 	"github.com/TopoSimplify/plugin/opts"
 	"github.com/franela/goblin"
@@ -60,7 +61,7 @@ func TestConstDP(t *testing.T) {
 				if i < 8 {
 					continue
 				}
-				var constraints = make([]geom.Geometry, 0)
+				var constraints = make([]geometry.IGeometry, 0)
 
 				for _, wkt := range datConstraints {
 					constraints = append(constraints, geom.NewPolygonFromWKT(wkt))
@@ -70,9 +71,9 @@ func TestConstDP(t *testing.T) {
 				options.DirRelation = td.relates.dir
 				options.DistRelation = td.relates.dist
 
-				var coords = geom.NewLineStringFromWKT(td.pln).Coordinates
+				var pln = &geometry.Polyline{geom.NewLineStringFromWKT(td.pln), "0", "", nil}
 				var dp = NewConstDP(
-					id.Next(), coords, constraints, options,
+					id.Next(), pln, constraints, options,
 					offset.MaxOffset, offset.SquareMaxOffset,
 				)
 				var ptset = dp.Simplify(id).SimpleSet
@@ -123,7 +124,7 @@ func TestConstSED(t *testing.T) {
 				DirRelation:            true,
 			}
 
-			var constraints = make([]geom.Geometry, 0)
+			var constraints = make([]geometry.IGeometry, 0)
 			//for _, wkt := range datConstraints {
 			//	constraints = append(constraints, geom.NewPolygonFromWKT(wkt))
 			//}
@@ -132,7 +133,8 @@ func TestConstSED(t *testing.T) {
 				{3.0, 1.6, 0.0}, {3.0, 2.0, 1.0}, {2.4, 2.8, 3.0}, {0.5, 3.0, 4.5},
 				{1.2, 3.2, 5.0}, {1.4, 2.6, 6.0}, {2.0, 3.5, 10.0},
 			})
-			var inst = NewConstDP(id.Next(), coords, constraints, options, offset.MaxSEDOffset).Simplify(id)
+			var pln = geometry.CreatePolyline("0", coords, "")
+			var inst = NewConstDP(id.Next(), pln, constraints, options, offset.MaxSEDOffset).Simplify(id)
 			var ptset = make([]int, 0)
 			for _, i := range inst.SimpleSet.Values() {
 				ptset = append(ptset, i.(int))
@@ -168,7 +170,7 @@ func TestConstSED(t *testing.T) {
 				DirRelation:            true,
 			}
 
-			var constraints []geom.Geometry
+			var constraints []geometry.IGeometry
 			//for _, wkt := range datConstraints {
 			//	constraints = append(constraints, geom.NewPolygonFromWKT(wkt))
 			//}
@@ -177,9 +179,11 @@ func TestConstSED(t *testing.T) {
 				{3.0, 1.6, 0.0}, {3.0, 2.0, 1.0}, {2.4, 2.8, 3.0}, {0.5, 3.0, 4.5},
 				{1.2, 3.2, 5.0}, {1.4, 2.6, 6.0}, {2.0, 3.5, 10.0},
 			})
-			var inst = NewConstDP(id.Next(), coords, constraints, options,
+			var pln = geometry.CreatePolyline("0", coords, "")
+			var inst = NewConstDP(id.Next(), pln, constraints, options,
 				offset.MaxSEDOffset, offset.SqureMaxSEDOffset,
 			).Simplify(id)
+
 			var ptset = make([]int, 0)
 			for _, i := range inst.SimpleSet.Values() {
 				ptset = append(ptset, i.(int))
