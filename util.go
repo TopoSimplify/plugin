@@ -5,12 +5,12 @@ import (
 	"log"
 )
 
-func usageHelp(){
+func usageHelp() {
 	log.Println("usage : ./plugin base_64_aphanumeric_string")
 }
 
 func encode64(s string) string {
-	return  b64.StdEncoding.EncodeToString([]byte(s))
+	return b64.StdEncoding.EncodeToString([]byte(s))
 }
 
 func decode64(s string) string {
@@ -20,4 +20,3 @@ func decode64(s string) string {
 	}
 	return string(sDec)
 }
-
