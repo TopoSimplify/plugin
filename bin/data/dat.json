@@ -1,0 +1,16 @@
+{
+  "input": "bin/data/input-sed.json",
+  "output": "bin/data/output-sed.json",
+  "constraints": "bin/data/constraints-sed.json",
+  "simplification_type": "SED",
+  "threshold": 100.0,
+  "minimum_distance": 28.0,
+  "relax_distance": 38.0,
+  "is_feature_class": false,
+  "planar_self": false,
+  "non_planar_self": false,
+  "avoid_new_self_intersects": false,
+  "geometric_relation": false,
+  "distance_relation": false,
+  "homotopy_relation": false
+}

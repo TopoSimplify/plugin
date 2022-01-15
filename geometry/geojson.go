@@ -159,9 +159,13 @@ func composeId(index int, pos int) string {
 func readJsonFile(file string) []string {
 	var data, err = fileutil.ReadAllOfFile(file)
 	checkError(err)
-	var tokens = strings.Split(strings.TrimSpace(data), "\n")
-	for i := range tokens {
-		tokens[i] = strings.TrimSpace(tokens[i])
+	var tokens = make([]string, 0)
+	var toks = strings.Split(strings.TrimSpace(data), "\n")
+	for _, tok := range toks {
+		var v = strings.TrimSpace(tok)
+		if v != "" {
+			tokens = append(tokens, v)
+		}
 	}
 	return tokens
 }
