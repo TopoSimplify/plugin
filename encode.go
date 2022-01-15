@@ -73,15 +73,6 @@ func extractCoords(coords []geom.Point) [][]float64 {
 	return coordinates
 }
 
-func getSimpleCoords(ln PolyGeom) []geom.Point {
-	var coords = ln.geom.Coordinates.Points()
-	var simple = make([]geom.Point, 0, len(ln.geom.Simple))
-	for i := range ln.geom.Simple {
-		simple = append(simple, coords[i])
-	}
-	return simple
-}
-
 func getMeta(g PolyGeom) map[string]interface{} {
 	var meta = g.geom.Meta
 	var properties map[string]interface{}
@@ -99,7 +90,7 @@ func getMeta(g PolyGeom) map[string]interface{} {
 func createGeoJSONString(featLns []PolyGeom) string {
 	if len(featLns) == 1 {
 		var gpoly = featLns[0]
-		var simple = getSimpleCoords(gpoly)
+		var simple = gpoly.geom.Simple.Points()
 		var coords = extractCoords(simple)
 		var meta = getMeta(gpoly)
 
@@ -117,7 +108,7 @@ func createGeoJSONString(featLns []PolyGeom) string {
 	var meta = getMeta(featLns[0])
 	var coordinates = make([][][]float64, 0, len(featLns))
 	for _, gpoly := range featLns {
-		var simple = getSimpleCoords(gpoly)
+		var simple = gpoly.geom.Simple.Points()
 		var coords = extractCoords(simple)
 		coordinates = append(coordinates, coords)
 	}

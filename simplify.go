@@ -41,9 +41,11 @@ func simplifyFeatureClass(
 
 func setSimpleIndices(forest []*constdp.ConstDP) {
 	for _, tree := range forest {
-		tree.Polyline.Simple = make([]int, 0, tree.SimpleSet.Size())
+		var coords = tree.Coordinates().Clone()
+		coords.Idxs = make([]int, 0, tree.SimpleSet.Size())
 		for _, o := range tree.SimpleSet.Values() {
-			tree.Polyline.Simple = append(tree.Polyline.Simple, o.(int))
+			coords.Idxs = append(coords.Idxs, o.(int))
 		}
+		tree.Polyline.Simple = coords
 	}
 }

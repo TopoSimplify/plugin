@@ -91,6 +91,7 @@ func optsFromCfg(obj ArgObj) opts.Opts {
 		MinDist:                obj.MinDist,
 		RelaxDist:              obj.RelaxDist,
 		PlanarSelf:             obj.PlanarSelf,
+		NonPlanarSelf:          obj.NonPlanarSelf,
 		AvoidNewSelfIntersects: obj.AvoidNewSelfIntersects,
 		GeomRelation:           obj.GeomRelation,
 		DistRelation:           obj.DistRelation,

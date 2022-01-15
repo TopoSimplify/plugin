@@ -12,15 +12,15 @@ type Polyline struct {
 	*geom.LineString
 	Id     string
 	Meta   string
-	Simple []int
+	Simple geom.Coords
 }
 
 //CreatePolyline construct new polyline
 func CreatePolyline(id string, coordinates geom.Coords, meta string) *Polyline {
 	if coordinates.Len() < 2 {
-		return &Polyline{nil, id, meta, nil}
+		return &Polyline{nil, id, meta, geom.Coords{}}
 	}
-	return &Polyline{geom.NewLineString(coordinates), id, meta, nil}
+	return &Polyline{geom.NewLineString(coordinates), id, meta, geom.Coords{}}
 }
 
 //SegmentBounds computes segment bounds
