@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/TopoSimplify/plugin/opts"
 	"log"
 )
 
@@ -29,6 +30,20 @@ func (opt ArgObj) String() string {
 		panic(err)
 	}
 	return string(cfgbytes)
+}
+
+func optsFromCfg(obj ArgObj) opts.Opts {
+	return opts.Opts{
+		Threshold:              obj.Threshold,
+		MinDist:                obj.MinDist,
+		RelaxDist:              obj.RelaxDist,
+		PlanarSelf:             obj.PlanarSelf,
+		NonPlanarSelf:          obj.NonPlanarSelf,
+		AvoidNewSelfIntersects: obj.AvoidNewSelfIntersects,
+		GeomRelation:           obj.GeomRelation,
+		DistRelation:           obj.DistRelation,
+		DirRelation:            obj.SideRelation,
+	}
 }
 
 func parseInput(arg string) ArgObj {

@@ -21,7 +21,7 @@ func simplifyInstances(plns []*geometry.Polyline, opts *opts.Opts,
 	}
 
 	constdp.SimplifyInstances(id, forest, junctions)
-	setSimpleIndices(forest)
+	setSimpleCoords(forest)
 }
 
 func simplifyFeatureClass(
@@ -36,10 +36,10 @@ func simplifyFeatureClass(
 	}
 
 	constdp.SimplifyFeatureClass(id, forest, opts)
-	setSimpleIndices(forest)
+	setSimpleCoords(forest)
 }
 
-func setSimpleIndices(forest []*constdp.ConstDP) {
+func setSimpleCoords(forest []*constdp.ConstDP) {
 	for _, tree := range forest {
 		var coords = tree.Coordinates().Clone()
 		coords.Idxs = make([]int, 0, tree.SimpleSet.Size())

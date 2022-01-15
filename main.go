@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/TopoSimplify/plugin/geometry"
-	"github.com/TopoSimplify/plugin/opts"
 	"github.com/intdxdt/fileutil"
 	"github.com/intdxdt/math"
 	"log"
@@ -83,18 +82,4 @@ func main() {
 		panic(err)
 	}
 	log.Println(fmt.Sprintf("elapsed time: %v seconds", math.Round(t1.Sub(t0).Seconds(), 6)))
-}
-
-func optsFromCfg(obj ArgObj) opts.Opts {
-	return opts.Opts{
-		Threshold:              obj.Threshold,
-		MinDist:                obj.MinDist,
-		RelaxDist:              obj.RelaxDist,
-		PlanarSelf:             obj.PlanarSelf,
-		NonPlanarSelf:          obj.NonPlanarSelf,
-		AvoidNewSelfIntersects: obj.AvoidNewSelfIntersects,
-		GeomRelation:           obj.GeomRelation,
-		DistRelation:           obj.DistRelation,
-		DirRelation:            obj.SideRelation,
-	}
 }
