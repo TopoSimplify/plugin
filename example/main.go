@@ -1,7 +1,7 @@
 package main
 
 import (
-	b64 "encoding/base64"
+	"encoding/base64"
 	"fmt"
 	"log"
 	"os"
@@ -10,9 +10,9 @@ import (
 )
 
 var args = `{
-          "input"                     : "data/data/feature_class.json",
-          "output"                    : "data/output/out_feat_class.json",
-          "constraints"               : "data/data/feature_class_const.json",
+          "input"                     : "data/feature_class.json",
+          "output"                    : "output/out_feat_class.json",
+          "constraints"               : "data/feature_class_const.json",
           "simplification_type"       : "DP",
           "threshold"                 : 50.0,
           "minimum_distance"          : 20.0,
@@ -26,7 +26,7 @@ var args = `{
           "homotopy_relation"         : true
         }`
 
-var simplifyExec = "simplify"
+var simplifyExec = "bin/simplify"
 var execDir string
 
 func init() {
@@ -39,12 +39,12 @@ func init() {
 }
 
 func main() {
-	fmt.Println(simplifyExec)
 	runPlugin(encode64(args))
 }
 
 func runPlugin(arg string) {
 	var cmd *exec.Cmd
+	//if arg is a path to a file , args will be: -f /path/to/config.json
 	cmd = exec.Command(simplifyExec, "-b", arg)
 
 	cmd.Stdout = os.Stdout
@@ -55,5 +55,5 @@ func runPlugin(arg string) {
 }
 
 func encode64(s string) string {
-	return b64.StdEncoding.EncodeToString([]byte(s))
+	return base64.StdEncoding.EncodeToString([]byte(s))
 }
