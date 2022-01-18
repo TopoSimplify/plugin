@@ -1,16 +1,11 @@
-Table of contents
-=================
+# Table of contents
+
 <!--ts-->
-   * [Installation](#introduction)
-   * [Usage](#non_planar_self)
-      * [STDIN](#stdin)
-      * [Local files](#local-files)
-      * [Remote files](#remote-files)
-      * [Multiple files](#multiple-files)
-      * [Combo](#combo)
-      * [Auto insert and update TOC](#auto-insert-and-update-toc)
-      * [GitHub token](#github-token)
-      * [TOC generation with Github Actions](#toc-generation-with-github-actions)
+   * [Introduction](#Introduction)
+   * [Geometry Types](#Geometry-Types)
+      * [Point Features](#Point-Features)
+      * [Linear Features](#Linear-Features)
+      * [Polygon Features](#Polygon-Features)
    * [Tests](#tests)
    * [Dependency](#dependency)
    * [Docker](#docker)
@@ -49,9 +44,40 @@ invalid relative to other features that constrain its shape.
 The goal of this plugin is to support contextual simplification of linear features
 and spatio-temporal trajectories. 
 
-## Geometry Types  
+## Geometry Types
+This simplification tool accepts single line [GeoJSON](https://geojson.org/) features (single/multi) or their
+geometries either as input linear features or constraints: points, lines, and polygons.
 
+# Point Type 
+Here is an example of a point feature (in multiple lines for clarity): 
+```json
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [125.6, 10.1]
+  },
+  "properties": {
+    "name": "Dinagat Islands"
+  }
+}
+```
 
+A point as input should look like this: 
+
+```json
+{"type": "Feature", "geometry": {"type": "Point", "coordinates": [125.6, 10.1]}, "properties": {"name": "Dinagat Islands"}}
+```
+OR 
+```json
+{"type": "Point", "coordinates": [125.6, 10.1]}
+```
+
+Multipoint versions of the above are also accepted. 
+
+```json
+{"type": "MultiPoint", "coordinates": [[10.0, 40.0], [40.0, 30.0], [20.0, 20.0], [30.0, 10.0]]}
+```
 
 ## Consistent Line Simplification in the Context of Planar Constraints
 
