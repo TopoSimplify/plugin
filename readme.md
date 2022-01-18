@@ -16,6 +16,20 @@ Simplification of arbitrary polylines in the context of arbitrary planar geometr
    * [How to use](#How-to-use)
      * [Simplification Options](#Simplification-Options)
        * [Sample JSON configuration](#Sample-JSON-configuration)
+       * [input](#input)
+       * [output](#output)
+       * [constraints](#constraints)
+       * [simplification_type](#simplification_type)
+       * [threshold](#threshold)
+       * [minimum_distance](#minimum_distance)
+       * [relax_distance](#relax_distance)
+       * [is_feature_class](#is_feature_class)
+       * [planar_self](#planar_self)
+       * [non_planar_self](#non_planar_self)
+       * [avoid_new_self_intersects](#avoid_new_self_intersects)
+       * [geometric_relation](#geometric_relation)
+       * [distance_relation](#distance_relation)
+       * [homotopy_relation](#homotopy_relation)
 <!--te-->
 
 
