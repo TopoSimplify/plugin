@@ -1,3 +1,24 @@
+Table of contents
+=================
+<!--ts-->
+   * [Installation](#introduction)
+   * [Usage](#non_planar_self)
+      * [STDIN](#stdin)
+      * [Local files](#local-files)
+      * [Remote files](#remote-files)
+      * [Multiple files](#multiple-files)
+      * [Combo](#combo)
+      * [Auto insert and update TOC](#auto-insert-and-update-toc)
+      * [GitHub token](#github-token)
+      * [TOC generation with Github Actions](#toc-generation-with-github-actions)
+   * [Tests](#tests)
+   * [Dependency](#dependency)
+   * [Docker](#docker)
+     * [Local](#local)
+     * [Public](#public)
+<!--te-->
+
+
 # Introduction 
 
 For many applications in spatial and spatio-temporal GIS, it is beneficial 
@@ -8,7 +29,7 @@ used  as a pre-processing tool before data mining, visualization, data
 transmission, and data exploration.
 
 Line simplification is the process of deforming the shape of a geometry by 
-removing excessive detail. There are two methods
+removing excessive detail. There are two methods:
  - Line smoothing (curve fitting) 
  - Vertex reduction
 
@@ -25,8 +46,11 @@ Out of context simplification can lead to change in contextual representation an
 meaning - simplified geometry may be self topologically consistent but spatially 
 invalid relative to other features that constrain its shape. 
 
-The goal of this plugin is to support contextual simplification linear features
+The goal of this plugin is to support contextual simplification of linear features
 and spatio-temporal trajectories. 
+
+## Geometry Types  
+
 
 
 ## Consistent Line Simplification in the Context of Planar Constraints
