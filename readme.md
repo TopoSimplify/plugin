@@ -48,7 +48,7 @@ and spatio-temporal trajectories.
 This simplification tool accepts single line [GeoJSON](https://geojson.org/) features (single/multi) or their
 geometries either as input linear features or constraints: points, lines, and polygons.
 
-# Point Type 
+### Point Type 
 Here is an example of a point feature (in multiple lines for clarity): 
 ```json
 {
@@ -80,6 +80,59 @@ Multipoint versions of feature/geometry are suported
 ```json
 {"type": "MultiPoint", "coordinates": [[10.0, 40.0], [40.0, 30.0], [20.0, 20.0], [30.0, 10.0]]}
 ```
+
+### Linear Type
+Here is an example of a linear feature: 
+```json
+{
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]
+        ]
+      },
+      "properties": {
+        "prop0": "value0",
+        "prop1": 0.0
+      }
+}
+```
+simplification tool expects: 
+```json
+{"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[102.0, 0.0], [103.0, 1.0], [104.0, 0.0], [105.0, 1.0]]}, "properties": {"prop0": "value0", "prop1": 0.0}}
+```
+or just the geometry 
+```json
+{"type": "LineString", "coordinates": [[30.0, 10.0], [10.0, 30.0], [40.0, 40.0]]}
+```
+
+A `MultiLineString` feature will look like this : 
+```json
+{
+      "type": "Feature",
+      "geometry": {
+         "type": "MultiLineString", 
+         "coordinates": [
+             [[10.0, 10.0], [20.0, 20.0], [10.0, 40.0]], 
+             [[40.0, 40.0], [30.0, 30.0], [40.0, 20.0], [30.0, 10.0]]
+         ]
+      },
+      "properties": {
+        "prop0": "value0",
+        "prop1": 0.0
+      }
+}
+```
+as input, string should be a single line: 
+```json
+{"type": "Feature", "geometry": {"type": "MultiLineString", "coordinates": [[[10.0, 10.0], [20.0, 20.0], [10.0, 40.0]], [[40.0, 40.0], [30.0, 30.0], [40.0, 20.0], [30.0, 10.0]]]}, "properties": {"prop0": "value0", "prop1": 0.0}}
+```
+or just the geometry:
+```json
+{"type": "MultiLineString", "coordinates": [[[10.0, 10.0], [20.0, 20.0], [10.0, 40.0]], [[40.0, 40.0], [30.0, 30.0], [40.0, 20.0], [30.0, 10.0]]]}
+```
+
 
 ## Consistent Line Simplification in the Context of Planar Constraints
 
