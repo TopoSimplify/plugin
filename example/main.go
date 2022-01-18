@@ -39,7 +39,9 @@ func init() {
 }
 
 func main() {
-	runPlugin(encode64(args))
+	var argsOpts = encode64(args)
+	fmt.Println(argsOpts)
+	runPlugin(args)
 }
 
 func runPlugin(arg string) {
