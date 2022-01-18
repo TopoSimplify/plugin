@@ -1,11 +1,17 @@
+# Simplification Tool
+This tool is designed to perform line simplification in the context of other planar objects.
+The simplification is constrained by various options and planar objects. 
+Simplification of arbitrary polylines in the context of arbitrary planar geometries are supported.
+
+
 # Table of contents
 
 <!--ts-->
    * [Introduction](#Introduction)
    * [Geometry Types](#Geometry-Types)
-      * [Point Features](#Point-Features)
-      * [Linear Features](#Linear-Features)
-      * [Polygon Features](#Polygon-Features)
+      * [Point Features](#Point-Type)
+      * [Linear Features](#Linear-Type)
+      * [Polygon Features](#Polygon-Type)
    * [Tests](#tests)
    * [Dependency](#dependency)
    * [Docker](#docker)
@@ -133,10 +139,42 @@ or just the geometry:
 {"type": "MultiLineString", "coordinates": [[[10.0, 10.0], [20.0, 20.0], [10.0, 40.0]], [[40.0, 40.0], [30.0, 30.0], [40.0, 20.0], [30.0, 10.0]]]}
 ```
 
+### Polygon Type
+Here is an example of a polygon feature: 
 
-## Consistent Line Simplification in the Context of Planar Constraints
+```json
+{
+      "type": "Feature",
+      "geometry": {
+         "type": "Polygon", 
+         "coordinates": [
+             [[30.0, 10.0], [40.0, 40.0], [20.0, 40.0], [10.0, 20.0], [30.0, 10.0]]
+         ]
+      },
+      "properties": {
+        "prop0": "value0",
+        "prop1": 0.0
+      }
+}
+```
+or just th polygon geometry: 
 
-Constrained simplification of arbitrary polylines in the context of arbitrary planar geometries.
+```json
+{
+    "type": "Polygon", 
+    "coordinates": [
+        [[30.0, 10.0], [40.0, 40.0], [20.0, 40.0], [10.0, 20.0], [30.0, 10.0]]
+    ]
+}
+```
+
+Tool expects data to be single line strings, like this: 
+```json
+{"type": "Polygon", "coordinates": [[[30.0, 10.0], [40.0, 40.0], [20.0, 40.0], [10.0, 20.0], [30.0, 10.0]]]}
+```
+
+`MultiPolygon` features or geometries are also supported.
+
 
 ### How to build
 
