@@ -12,11 +12,10 @@ Simplification of arbitrary polylines in the context of arbitrary planar geometr
       * [Point Features](#Point-Type)
       * [Linear Features](#Linear-Type)
       * [Polygon Features](#Polygon-Type)
-   * [Tests](#tests)
-   * [Dependency](#dependency)
-   * [Docker](#docker)
-     * [Local](#local)
-     * [Public](#public)
+   * [How to build from source](#How-to-build-from-source)
+   * [How to use](#How-to-use)
+     * [Simplification Options](#Simplification-Options)
+       * [Sample JSON configuration](#Sample-JSON-configuration)
 <!--te-->
 
 
@@ -176,7 +175,7 @@ Tool expects data to be single line strings, like this:
 `MultiPolygon` features or geometries are also supported.
 
 
-### How to build
+### How to build from source
 
 Install the latest version of [Go](https://golang.org/dl/)
 Clone the repository, open a terminal/command prompt, change director (cd) to the cloned directory. Enter the command:
@@ -203,9 +202,9 @@ Use the command line option `-f` for configuration in a file
 ./simplify.exe -f "c:/path/to/config.json"
 ```
 
-### Options:
+### Simplification Options
 
-Simplification options are a set of key value pairs
+Simplification options are a set of key value pairs in a `JSON`
 
 #### Sample JSON configuration
 
