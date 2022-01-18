@@ -1,3 +1,34 @@
+# Introduction 
+
+For many applications in spatial and spatio-temporal GIS, it is beneficial 
+to collect data once the highest possible resolution as a master database. 
+Simplification can be used as a tool to derive data at a coarser resolution 
+from the master database for other applications.  Simplification can also be 
+used  as a pre-processing tool before data mining, visualization, data 
+transmission, and data exploration.
+
+Line simplification is the process of deforming the shape of a geometry by 
+removing excessive detail. There are two methods
+ - Line smoothing (curve fitting) 
+ - Vertex reduction
+
+Either method, based on some criteria, may produce a simplification that has 
+much less detail compared to the original polyline. If topologically constrained, 
+the simplification will result in an output that maintains some topological 
+consistency with the original input.
+
+Unconstrained simplification can lead to various topological errors in the output 
+geometry. In circumstances where the input geometry has spatial relationships with 
+other features in the same layer or other layers, the spatial context under which 
+the linear feature to be simplified needs consideration. 
+Out of context simplification can lead to change in contextual representation and 
+meaning - simplified geometry may be self topologically consistent but spatially 
+invalid relative to other features that constrain its shape. 
+
+The goal of this plugin is to support contextual simplification linear features
+and spatio-temporal trajectories. 
+
+
 ## Consistent Line Simplification in the Context of Planar Constraints
 
 Constrained simplification of arbitrary polylines in the context of arbitrary planar geometries.
