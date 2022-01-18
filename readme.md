@@ -63,17 +63,19 @@ Here is an example of a point feature (in multiple lines for clarity):
 }
 ```
 
-A point as input should look like this: 
+A point GeoJSON string as input should be on one line, like this: 
 
 ```json
 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [125.6, 10.1]}, "properties": {"name": "Dinagat Islands"}}
 ```
-OR 
+
+or only the geometry part of the GeoJSON: 
+
 ```json
 {"type": "Point", "coordinates": [125.6, 10.1]}
 ```
 
-Multipoint versions of the above are also accepted. 
+Multipoint versions of feature/geometry are suported 
 
 ```json
 {"type": "MultiPoint", "coordinates": [[10.0, 40.0], [40.0, 30.0], [20.0, 20.0], [30.0, 10.0]]}
