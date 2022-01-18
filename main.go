@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/TopoSimplify/plugin/geometry"
 	"github.com/intdxdt/fileutil"
@@ -15,33 +16,52 @@ import (
 var wktPoint = []byte("point")
 var wktPolygon = []byte("polygon")
 var wktLinestring = []byte("linestring")
+var argJSONFile string
+var argBase64String string
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
+	flag.StringVar(&argBase64String, "b", "-", "base64 string")
+	flag.StringVar(&argJSONFile, "f", "-", "json config file")
 
-	var args = os.Args[1:]
-	if len(args) == 0 {
-		log.Fatalln("input base64 string not provided !")
+	flag.Parse()
+
+	if argBase64String == "-" && argJSONFile == "-" {
+		log.Println("\nHow to use:")
+		flag.PrintDefaults()
+		fmt.Println("Invalid arguments!")
+		os.Exit(13)
 	}
 
-	var argObj = parseInput(strings.TrimSpace(args[0]))
-	var options = optsFromCfg(argObj)
+	if argBase64String != "-" && argJSONFile != "-" {
+		log.Println("")
+		log.Println("\nHow to use:")
+		flag.PrintDefaults()
+		fmt.Println("Ambigous arguments! Expects only one flag: -b or -f")
+		os.Exit(13)
+	}
 
-	//var polyline = geometry.ReadInputPolylines("data/input.json")
-	//var constraints = geometry.ReadInputConstraints("data/constraints.json")
+	if argJSONFile != "-" {
+		var jsonConfig, err = fileutil.ReadAllOfFile(argJSONFile)
+		if err != nil {
+			panic(err)
+		}
+		argBase64String = encode64(strings.TrimSpace(jsonConfig))
+	}
+
+	var argObj = parseInput(strings.TrimSpace(argBase64String))
+	var options = optsFromCfg(argObj)
 
 	//config simplification type
 	argObj.SimplificationType = strings.ToLower(strings.TrimSpace(argObj.SimplificationType))
 	var offsetFn = offsetDictionary[argObj.SimplificationType]
 	if offsetFn == nil {
 		log.Println(`Supported Simplification Types : "DP" or "SED", Fix input`)
-		os.Exit(1)
+		os.Exit(13)
 	}
 
-	var polylines = make([]*geometry.Polyline, 0)
-	//var outputPolylines = make([]geometry.Polyline, 0)
-
 	//lines
+	var polylines = make([]*geometry.Polyline, 0)
 	argObj.Input = strings.TrimSpace(argObj.Input)
 	if fileutil.IsFile(argObj.Input) {
 		polylines = geometry.ReadInputPolylines(argObj.Input)
@@ -68,10 +88,8 @@ func main() {
 
 	var t0 = time.Now()
 	if argObj.IsFeatureClass {
-		//outputPolylines = simplifyFeatureClass(polylines, &options, constraints, offsetFn)
 		simplifyFeatureClass(polylines, &options, constraints, offsetFn)
 	} else {
-		//outputPolylines = simplifyInstances(polylines, &options, constraints, offsetFn)
 		simplifyInstances(polylines, &options, constraints, offsetFn)
 	}
 	var t1 = time.Now()
