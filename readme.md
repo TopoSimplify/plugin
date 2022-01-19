@@ -32,7 +32,7 @@ Simplification of arbitrary polylines in the context of arbitrary planar geometr
        * [distance_relation](#distance_relation)
        * [homotopy_relation](#homotopy_relation)
    * [GeoJSON to Base 64](#GeoJSON-to-Base-64)
-     * [In C#](#In C-Sharp)
+     * [In C-Sharp](#In C-Sharp)
      * [In Python 3](#In-python-3)  
 <!--te-->
 
