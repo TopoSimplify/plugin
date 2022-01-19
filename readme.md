@@ -379,8 +379,8 @@ Out of context simplification can change the topology of the simplified polyline
 an intersection (when features should be disjoint) or remove intersect intersection relation (when features should intersect)
 See these examples:  
 <p float="left">
-    <img src="docs/imgs/geom-relate-1.png" style="width:60%">
-    <img src="docs/imgs/geom-relate-2.png" style="width:60%">
+    <img src="docs/imgs/geom-relate-1.png" style="width:45%">
+    <img src="docs/imgs/geom-relate-2.png" style="width:45%">
 </p>
 
 #### distance_relation
@@ -396,7 +396,7 @@ to polygonal zones due to environmental restrictions such noise, pollution etc. 
 geometries can be constrained to observe some minimum distance relation to planar objects.
 See illustration : 
 <p float="left">
-    <img src="docs/imgs/distance-relation.png" style="width:60%">
+    <img src="docs/imgs/distance-relation.png" style="width:45%">
 </p>
 
 #### homotopy_relation
