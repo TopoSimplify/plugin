@@ -23,7 +23,7 @@ Simplification of arbitrary polylines in the context of arbitrary planar geometr
        * [simplification_type](#simplification_type)
        * [threshold](#threshold)
        * [minimum_distance](#minimum_distance)
-       * [relax_distance](#relax_distance)
+       * [non_planar_displacement](#non_planar_displacement)
        * [is_feature_class](#is_feature_class)
        * [planar_self](#planar_self)
        * [non_planar_self](#non_planar_self)
@@ -240,7 +240,7 @@ Simplification options are a set of key value pairs in a `JSON`
   "simplification_type": "DP",
   "threshold": 50.0,
   "minimum_distance": 20.0,
-  "relax_distance": 10.0,
+  "non_planar_displacement": 10.0,
   "is_feature_class": false,
   "planar_self": true,
   "non_planar_self": true,
@@ -303,12 +303,12 @@ distance is also in the same units as input coordinates.
 "minimum_distance" : 3.0
 ```
 
-#### relax_distance
+#### non_planar_displacement
 
-Relax distance for non-planar intersections - provide value if `non_planar_self = true`
+Non planar displacement distance for non-planar intersections - provide value if `non_planar_self = true`
 
 ```text
-"relax_distance" : 0.0
+"non_planar_displacement" : 10.0
 ```
 
 #### is_feature_class
@@ -334,8 +334,8 @@ preserves planar intersections between features of a feature class.
 #### non_planar_self
 
 Observe non-planar self-intersection - preserves non-planar intersection (overlaps between lines that do not introduce
-an intersection). If `is_feature_class` preserves non-planar intersections between features of a feature class based on
-a relaxation distance.
+an intersection). If `is_feature_class`, preserves non-planar intersections between features of a feature class based on
+a non-planar displacement value (`non_planar_displacement`).
 
 ```text
 "non_planar_self" : false

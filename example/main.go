@@ -16,7 +16,7 @@ var args = `{
           "simplification_type"       : "DP",
           "threshold"                 : 50.0,
           "minimum_distance"          : 20.0,
-          "relax_distance"            : 10.0,
+          "non_planar_displacement"   : 10.0,
           "is_feature_class"          : true,
           "planar_self"               : true,
           "non_planar_self"           : true,
