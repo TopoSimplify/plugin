@@ -31,6 +31,9 @@ Simplification of arbitrary polylines in the context of arbitrary planar geometr
        * [geometric_relation](#geometric_relation)
        * [distance_relation](#distance_relation)
        * [homotopy_relation](#homotopy_relation)
+   * [GeoJSON to Base 64](#GeoJSON-to-Base-64)
+     * [In C#](in-c#)
+     * [In Python](in-python)  
 <!--te-->
 
 
@@ -416,3 +419,35 @@ The following illustrates change in homotopy due to simplification:
     <img src="docs/imgs/homotopy-2.png" style="width:60%">
     <img src="docs/imgs/homotopy-3.png" style="width:60%">
 </p>
+
+
+#GeoJSON to Base 64
+The following snippets show how to convert configuration JSON to encoded 
+base 64 string as a command line argument.
+## In C#
+Encode and decode string:
+```c# 
+public static string Base64Encode(string plainText) {
+  var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+  return System.Convert.ToBase64String(plainTextBytes);
+}
+
+public static string Base64Decode(string base64EncodedData) {
+  var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+  return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+}
+```
+
+## In Python3 
+Encode and decode string 
+
+```python
+import base64
+
+def encode_base64(input_str):
+    return base64.b64encode(input_str.encode("ascii")).decode("ascii")
+
+
+def decode_base64(base64_str):
+    return base64.b64decode(base64_str.encode("ascii")).decode("ascii")
+```
