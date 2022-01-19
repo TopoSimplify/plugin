@@ -11,6 +11,7 @@ Simplification of arbitrary polylines in the context of arbitrary planar geometr
    * [Geometry Types](#Geometry-Types)
       * [Point Features](#Point-Type)
       * [Linear Features](#Linear-Type)
+        * [Spatiotemporal Coordinates](#Spatiotemporal-Coordinates)
       * [Polygon Features](#Polygon-Type)
    * [How to build from source](#How-to-build-from-source)
    * [How to use](#How-to-use)
@@ -65,7 +66,8 @@ and spatio-temporal trajectories.
 
 ## Geometry Types
 This simplification tool accepts single line [GeoJSON](https://geojson.org/) features (single/multi) or their
-geometries either as input linear features or constraints: points, lines, and polygons.
+geometries either as input linear features or constraints (points, lines, and polygons).
+
 
 ### Point Type 
 Here is an example of a point feature (in multiple lines for clarity): 
@@ -77,7 +79,7 @@ Here is an example of a point feature (in multiple lines for clarity):
     "coordinates": [125.6, 10.1]
   },
   "properties": {
-    "name": "Dinagat Islands"
+    "name": "Titus Islands"
   }
 }
 ```
@@ -85,7 +87,7 @@ Here is an example of a point feature (in multiple lines for clarity):
 A point GeoJSON string as input should be on one line, like this: 
 
 ```json
-{"type": "Feature", "geometry": {"type": "Point", "coordinates": [125.6, 10.1]}, "properties": {"name": "Dinagat Islands"}}
+{"type": "Feature", "geometry": {"type": "Point", "coordinates": [125.6, 10.1]}, "properties": {"name": "Titus Islands"}}
 ```
 
 or only the geometry part of the GeoJSON: 
@@ -94,7 +96,7 @@ or only the geometry part of the GeoJSON:
 {"type": "Point", "coordinates": [125.6, 10.1]}
 ```
 
-Multipoint versions of feature/geometry are suported 
+Multipoint versions of feature/geometry are supported 
 
 ```json
 {"type": "MultiPoint", "coordinates": [[10.0, 40.0], [40.0, 30.0], [20.0, 20.0], [30.0, 10.0]]}
@@ -112,8 +114,8 @@ Here is an example of a linear feature:
         ]
       },
       "properties": {
-        "prop0": "value0",
-        "prop1": 0.0
+        "prop0": "value-0",
+        "prop1": 0
       }
 }
 ```
@@ -138,8 +140,8 @@ A `MultiLineString` feature will look like this :
          ]
       },
       "properties": {
-        "prop0": "value0",
-        "prop1": 0.0
+        "prop0": "value-0",
+        "prop1": 0
       }
 }
 ```
@@ -150,6 +152,15 @@ as input, string should be a single line:
 or just the geometry:
 ```json
 {"type": "MultiLineString", "coordinates": [[[10.0, 10.0], [20.0, 20.0], [10.0, 40.0]], [[40.0, 40.0], [30.0, 30.0], [40.0, 20.0], [30.0, 10.0]]]}
+```
+
+#### Spatiotemporal Coordinates
+When performing simplification of `3D` linear features, for example trajectories, the coordinates of each vertex
+can have a third component such as time: `[2819444.40306664, 4502116.1380905, 1370045820.0]`. `3D` coordinates 
+are required when performing Synchronized Euclidean Distance (`SED`) simplification.
+A snippet of a `3D` linestring:  
+```text
+{"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[2819444.40306664, 4502116.1380905, 1370045820.0], [2819445.51626154, 4502116.1380905, 1370047080.0],....]}}
 ```
 
 ### Polygon Type
@@ -165,8 +176,8 @@ Here is an example of a polygon feature:
          ]
       },
       "properties": {
-        "prop0": "value0",
-        "prop1": 0.0
+        "prop0": "value-0",
+        "prop1": 0
       }
 }
 ```
@@ -224,9 +235,9 @@ Simplification options are a set of key value pairs in a `JSON`
 
 ```json
 {
-  "input": "data/feature_class.json",
-  "output": "output/out_feat_class.json",
-  "constraints": "data/feature_class_const.json",
+  "input": "data/input.json",
+  "output": "output/output.json",
+  "constraints": "data/constraints.json",
   "simplification_type": "DP",
   "threshold": 50.0,
   "minimum_distance": 20.0,
@@ -286,7 +297,7 @@ Simplification distance threshold - in same units as input planar coordinates
 
 #### minimum_distance
 
-Minimum distance from planar contraints - provide a value if `"distance_relation": true`
+Minimum distance from planar constraints - provide a value if `"distance_relation": true`
 
 ```text
 "minimum_distance" : 0.0
@@ -303,7 +314,7 @@ Relax distance for non-planar intersections - provide value if `NonPlanarSelf = 
 #### is_feature_class
 
 Are polylines independent or a feature class ? if `false` planar and non-planar intersections between polylines are not
-observed. If set to `true` the relations between each feature in the class of linestrings are preserved based on options
+observed. If set to `true`, the relations between each feature in the class of linestrings are preserved based on options
 provided.
 
 ```text
