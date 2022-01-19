@@ -311,9 +311,9 @@ The following figures illustrate the displacement of non planar overlap as a res
 
 
 <p float="left">
-    <img src="docs/imgs/non-planar-1.png" style="width:50%">
-    <img src="docs/imgs/non-planar-2.png" style="width:50%">
-    <img src="docs/imgs/non-planar-3.png" style="width:50%">
+    <img src="docs/imgs/non-planar-1.png" style="width:80%">
+    <img src="docs/imgs/non-planar-2.png" style="width:80%">
+    <img src="docs/imgs/non-planar-3.png" style="width:80%">
 </p>
 
 ```text
@@ -322,9 +322,9 @@ The following figures illustrate the displacement of non planar overlap as a res
 
 #### is_feature_class
 
-Are polylines independent or share a topological relation like contours or road network ? if `false` planar and 
-non-planar intersections between polylines are not observed. If set to `true`, the relations between each feature 
-in the class of linestrings are preserved based on options provided.
+A collection of polylines can be independent or share a topological relation like contours or road network.
+If `false` planar and non-planar intersections between polylines are not observed. 
+If set to `true`, the relations between each feature in the class of linestrings are preserved based on options provided.
 
 ```text
 "is_feature_class" : false
@@ -335,6 +335,16 @@ in the class of linestrings are preserved based on options provided.
 Observe planar self-intersection - preserves planar intersection (vertex with degree greater than 2).
 If `is_feature_class`
 preserves planar intersections between features of a feature class.
+
+Here are snippets of planar intersection and its simplification:
+
+<p float="left">
+    <img src="docs/imgs/planar-1.png" style="width:80%">
+    <img src="docs/imgs/planar-2.png" style="width:80%">
+    <img src="docs/imgs/planar-3.png" style="width:80%">
+</p>
+
+
 
 ```text
 "planar_self" : false
