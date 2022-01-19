@@ -310,19 +310,11 @@ The following figures illustrate the displacement of non planar overlap as a res
 `non_planar_displacement` is a distance to constrain such displacements
 
 
-<div style="clear: both; display: table;">
-  <div style="float: left; width: 10%; padding: 3px;">
-    <img src="docs/imgs/non-planar-1.png" alt="Snow" style="width:30%">
-  </div>
-  <div style="float: left; width: 10%; padding: 3px;">
-    <img src="docs/imgs/non-planar-2.png" alt="Forest" style="width:30%">
-  </div>
-  <div style="float: left; width: 10%; padding: 3px;">
-    <img src="docs/imgs/non-planar-3.png" alt="Mountains" style="width:30%">
-  </div>
-</div>
-
-
+<p float="left">
+    <img src="docs/imgs/non-planar-1.png" style="width:50%">
+    <img src="docs/imgs/non-planar-2.png" style="width:50%">
+    <img src="docs/imgs/non-planar-3.png" style="width:50%">
+</p>
 
 ```text
 "non_planar_displacement" : 10.0
