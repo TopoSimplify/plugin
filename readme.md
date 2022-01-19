@@ -32,7 +32,7 @@ Simplification of arbitrary polylines in the context of arbitrary planar geometr
        * [distance_relation](#distance_relation)
        * [homotopy_relation](#homotopy_relation)
    * [GeoJSON to Base 64](#GeoJSON-to-Base-64)
-     * [In C-Sharp](#In C-Sharp)
+     * [In C Sharp](#In C Sharp)
      * [In Python 3](#In-python-3)  
 <!--te-->
 
@@ -425,7 +425,7 @@ The following illustrates change in homotopy due to simplification:
 The following snippets show how to convert configuration JSON to encoded 
 base 64 string as a command line argument.
 
-## In C-Sharp
+## In C Sharp
 Encode and decode string:
 ```c# 
 public static string Base64Encode(string plainText) {
