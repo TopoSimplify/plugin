@@ -311,9 +311,9 @@ The following figures illustrate the displacement of non planar overlap as a res
 
 
 <p float="left">
-    <img src="docs/imgs/non-planar-1.png" style="width:80%">
-    <img src="docs/imgs/non-planar-2.png" style="width:80%">
-    <img src="docs/imgs/non-planar-3.png" style="width:80%">
+    <img src="docs/imgs/non-planar-1.png" style="width:60%">
+    <img src="docs/imgs/non-planar-2.png" style="width:60%">
+    <img src="docs/imgs/non-planar-3.png" style="width:60%">
 </p>
 
 ```text
@@ -339,9 +339,9 @@ preserves planar intersections between features of a feature class.
 Here are snippets of planar intersection and its simplification:
 
 <p float="left">
-    <img src="docs/imgs/planar-1.png" style="width:80%">
-    <img src="docs/imgs/planar-2.png" style="width:80%">
-    <img src="docs/imgs/planar-3.png" style="width:80%">
+    <img src="docs/imgs/planar-1.png" style="width:60%">
+    <img src="docs/imgs/planar-2.png" style="width:60%">
+    <img src="docs/imgs/planar-3.png" style="width:60%">
 </p>
 
 
