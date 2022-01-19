@@ -37,7 +37,7 @@ func nonContiguousCandidates(options *opts.Opts, a, b *node.Node) (*node.Node, *
 			for i := range ptLns {
 				for j := range atSeg {
 					delta := ptLns[i].Distance(atSeg[j])
-					if delta > options.RelaxDist {
+					if delta > options.NonPlanarDisplacement {
 						sa, sb = a, b
 						break outer
 					}

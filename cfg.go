@@ -14,7 +14,7 @@ type ArgObj struct {
 	SimplificationType     string  `json:"simplification_type"`
 	Threshold              float64 `json:"threshold"`
 	MinDist                float64 `json:"minimum_distance"`
-	RelaxDist              float64 `json:"relax_distance"`
+	NonPlanarDisplacement  float64 `json:"non_planar_displacement"`
 	IsFeatureClass         bool    `json:"is_feature_class"`
 	PlanarSelf             bool    `json:"planar_self"`
 	NonPlanarSelf          bool    `json:"non_planar_self"`
@@ -36,7 +36,7 @@ func optsFromCfg(obj ArgObj) opts.Opts {
 	return opts.Opts{
 		Threshold:              obj.Threshold,
 		MinDist:                obj.MinDist,
-		RelaxDist:              obj.RelaxDist,
+		NonPlanarDisplacement:  obj.NonPlanarDisplacement,
 		PlanarSelf:             obj.PlanarSelf,
 		NonPlanarSelf:          obj.NonPlanarSelf,
 		AvoidNewSelfIntersects: obj.AvoidNewSelfIntersects,

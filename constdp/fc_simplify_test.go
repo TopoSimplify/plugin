@@ -40,7 +40,7 @@ func TestConstDP_FC(t *testing.T) {
 	var simplifyForest = func(lns []*geom.LineString, opts *opts.Opts) []*geom.LineString {
 		var forest []*ConstDP
 		for _, l := range lns {
-			var pln = &geometry.Polyline{l, "0", "", nil}
+			var pln = &geometry.Polyline{l, "0", "", geom.Coords{}}
 			dp := NewConstDP(id.Next(), pln, constraints, opts, offset.MaxOffset, offset.SquareMaxOffset)
 			forest = append(forest, dp)
 		}
@@ -52,7 +52,7 @@ func TestConstDP_FC(t *testing.T) {
 	var simplifyInIsolation = func(lns []*geom.LineString, opts *opts.Opts) []*geom.LineString {
 		var forest []*ConstDP
 		for _, l := range lns {
-			var pln = &geometry.Polyline{l, "0", "", nil}
+			var pln = &geometry.Polyline{l, "0", "", geom.Coords{}}
 			dp := NewConstDP(id.Next(), pln, constraints, opts, offset.MaxOffset, offset.SquareMaxOffset)
 			forest = append(forest, dp)
 		}
@@ -67,7 +67,7 @@ func TestConstDP_FC(t *testing.T) {
 	options := &opts.Opts{
 		Threshold:              300.0,
 		MinDist:                20.0,
-		RelaxDist:              30.0,
+		NonPlanarDisplacement:  30.0,
 		PlanarSelf:             true,
 		AvoidNewSelfIntersects: true,
 		GeomRelation:           true,
@@ -140,7 +140,7 @@ func TestConstDP_FC(t *testing.T) {
 			//gs := simplify_forest(plns, options)
 			var forest []*ConstDP
 			for _, l := range plns {
-				var pln = &geometry.Polyline{l, "0", "", nil}
+				var pln = &geometry.Polyline{l, "0", "", geom.Coords{}}
 				dp := NewConstDP(id.Next(), pln, constraints, options, offset.MaxOffset, offset.SquareMaxOffset)
 				forest = append(forest, dp)
 			}

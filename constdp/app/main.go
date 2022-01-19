@@ -42,7 +42,7 @@ func main() {
 	options := &opts.Opts{
 		Threshold:              50.0,
 		MinDist:                20.0,
-		RelaxDist:              30.0,
+		NonPlanarDisplacement:  30.0,
 		PlanarSelf:             false,
 		AvoidNewSelfIntersects: true,
 		GeomRelation:           true,

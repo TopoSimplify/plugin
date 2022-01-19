@@ -23,7 +23,7 @@ func TestToSelfIntersects(t *testing.T) {
 			options := &opts.Opts{
 				Threshold:              1.0,
 				MinDist:                1.0,
-				RelaxDist:              1.0,
+				NonPlanarDisplacement:  1.0,
 				PlanarSelf:             true,
 				NonPlanarSelf:          true,
 				AvoidNewSelfIntersects: true,
@@ -66,7 +66,7 @@ func TestToSelfIntersects(t *testing.T) {
 			var options = &opts.Opts{
 				Threshold:              1.0,
 				MinDist:                1.0,
-				RelaxDist:              1.0,
+				NonPlanarDisplacement:  1.0,
 				PlanarSelf:             true,
 				NonPlanarSelf:          true,
 				AvoidNewSelfIntersects: true,
@@ -113,7 +113,7 @@ func TestToSelfIntersects(t *testing.T) {
 			var options = &opts.Opts{
 				Threshold:              300.0,
 				MinDist:                300.0,
-				RelaxDist:              300.0,
+				NonPlanarDisplacement:  300.0,
 				PlanarSelf:             true,
 				NonPlanarSelf:          true,
 				AvoidNewSelfIntersects: true,
@@ -150,7 +150,7 @@ func TestToSelfIntersects(t *testing.T) {
 			var options = &opts.Opts{
 				Threshold:              300.0,
 				MinDist:                300.0,
-				RelaxDist:              300.0,
+				NonPlanarDisplacement:  300.0,
 				PlanarSelf:             true,
 				NonPlanarSelf:          true,
 				AvoidNewSelfIntersects: true,

@@ -34,8 +34,7 @@ Simplification of arbitrary polylines in the context of arbitrary planar geometr
 <!--te-->
 
 
-# Introduction 
-
+# Introduction
 For many applications in spatial and spatio-temporal GIS, it is beneficial 
 to collect data once the highest possible resolution as a master database. 
 Simplification can be used as a tool to derive data at a coarser resolution 
@@ -254,8 +253,9 @@ Simplification options are a set of key value pairs in a `JSON`
 
 #### input
 
-GeoJSON file with new line delimited (each line is linestring geojson feature) of JSON features (`LineString`
-or `MultiLineString`)
+GeoJSON file with newline delimited strings (each line is linestring geojson feature) of JSON features (`LineString`
+or `MultiLineString`).
+For example, see [feature_class.json](example/data/feature_class.wkt).
 
 ```text
 "input" : "data/input.json"
@@ -263,7 +263,7 @@ or `MultiLineString`)
 
 #### output
 
-Path to simplification output(GeoJSON) as newline delimited simplification of `input`
+Path to simplification output as newline delimited simplification of `input`
 
 ```text 
 "output" : "output/output.json"
@@ -271,9 +271,8 @@ Path to simplification output(GeoJSON) as newline delimited simplification of `i
 
 #### constraints
 
-GeoJSON file with new line delimited of JSON `Point`/`MultiPoint`, `LineString`/`MultiLineString` or `Polygon`
-/`MultiPolygon`
-geometries.
+GeoJSON file with newline delimited GeoJSON `Point`/`MultiPoint`, `LineString`/`MultiLineString` or 
+`Polygon`/`MultiPolygon` geometries (feature or geometry). For example [constraints](example/data/constraints.json).
 
 ```text
 "constraints" : "data/constraints.json" 
@@ -281,7 +280,7 @@ geometries.
 
 #### simplification_type
 
-Type of simplification: `"DP"` or `"SED"`
+Type of simplification: Douglas-Peucker (`"DP"`) or Synchronized Euclidean Distance(`"SED"`)
 
 ```text
 "simplification_type" : "DP"
@@ -289,23 +288,24 @@ Type of simplification: `"DP"` or `"SED"`
 
 #### threshold
 
-Simplification distance threshold - in same units as input planar coordinates
+Simplification distance threshold - this should be in same units as input planar coordinates
 
 ```text
-"threshold" : 0.0
+"threshold" : 50.0
 ```
 
 #### minimum_distance
 
-Minimum distance from planar constraints - provide a value if `"distance_relation": true`
+Minimum distance from planar constraints - provide a value if `"distance_relation": true`. This 
+distance is also in the same units as input coordinates.
 
 ```text
-"minimum_distance" : 0.0
+"minimum_distance" : 3.0
 ```
 
 #### relax_distance
 
-Relax distance for non-planar intersections - provide value if `NonPlanarSelf = true`
+Relax distance for non-planar intersections - provide value if `non_planar_self = true`
 
 ```text
 "relax_distance" : 0.0

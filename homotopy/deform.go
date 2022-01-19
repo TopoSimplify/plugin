@@ -6,16 +6,6 @@ import (
 	"github.com/intdxdt/rtree"
 )
 
-//func printChain(chain *Chain) {
-//	var coords []geom.Point
-//	var link = chain.link
-//	for link != nil {
-//		coords = append(coords, *link.Point)
-//		link = link.next
-//	}
-//	fmt.Println(geom.NewLineString(coords).WKT())
-//}
-
 //deforms a polyline given coordinates and
 // disjoint context neighbours
 func chainDeformation(

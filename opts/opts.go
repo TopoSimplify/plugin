@@ -6,7 +6,7 @@ import "encoding/json"
 type Opts struct {
 	Threshold              float64 `json:"threshold"`
 	MinDist                float64 `json:"mindist"`
-	RelaxDist              float64 `json:"relaxdist"`
+	NonPlanarDisplacement  float64 `json:"nonplanardisplacement"`
 	PlanarSelf             bool    `json:"planarself"`
 	NonPlanarSelf          bool    `json:"nonplanarself"`
 	AvoidNewSelfIntersects bool    `json:"avoidself"`
