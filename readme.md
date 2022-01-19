@@ -375,6 +375,13 @@ Observe geometric relation (intersect / disjoint) to planar objects serving as c
 ```text
 "geometric_relation" : false
 ```
+Out of context simplification can change the topology of the simplified polyline by introducing
+an intersection (when features should be disjoint) or remove intersect intersection relation (when features should intersect)
+See these examples:  
+<p float="left">
+    <img src="docs/imgs/geom-relate-1.png" style="width:60%">
+    <img src="docs/imgs/geom-relate-2.png" style="width:60%">
+</p>
 
 #### distance_relation
 
