@@ -305,7 +305,24 @@ distance is also in the same units as input coordinates.
 
 #### non_planar_displacement
 
-Non planar displacement distance for non-planar intersections - provide value if `non_planar_self = true`
+Non planar displacement distance for non-planar intersections - provide value if `non_planar_self = true`.
+The following figures illustrate the displacement of non planar overlap as a result of simplification. 
+`non_planar_displacement` is a distance to constrain such displacements
+
+
+<div style="clear: both; display: table;">
+  <div style="float: left; width: 10%; padding: 3px;">
+    <img src="docs/imgs/non-planar-1.png" alt="Snow" style="width:100%">
+  </div>
+  <div style="float: left; width: 10%; padding: 3px;">
+    <img src="docs/imgs/non-planar-2.png" alt="Forest" style="width:100%">
+  </div>
+  <div style="float: left; width: 10%; padding: 3px;">
+    <img src="docs/imgs/non-planar-3.png" alt="Mountains" style="width:100%">
+  </div>
+</div>
+
+
 
 ```text
 "non_planar_displacement" : 10.0
@@ -313,9 +330,9 @@ Non planar displacement distance for non-planar intersections - provide value if
 
 #### is_feature_class
 
-Are polylines independent or a feature class ? if `false` planar and non-planar intersections between polylines are not
-observed. If set to `true`, the relations between each feature in the class of linestrings are preserved based on options
-provided.
+Are polylines independent or share a topological relation like contours or road network ? if `false` planar and 
+non-planar intersections between polylines are not observed. If set to `true`, the relations between each feature 
+in the class of linestrings are preserved based on options provided.
 
 ```text
 "is_feature_class" : false
