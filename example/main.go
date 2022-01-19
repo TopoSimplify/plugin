@@ -9,22 +9,23 @@ import (
 	"path/filepath"
 )
 
-var args = `{
-          "input"                     : "data/feature_class.json",
-          "output"                    : "output/out_feat_class.json",
-          "constraints"               : "data/feature_class_const.json",
-          "simplification_type"       : "DP",
-          "threshold"                 : 50.0,
-          "minimum_distance"          : 20.0,
-          "non_planar_displacement"   : 10.0,
-          "is_feature_class"          : true,
-          "planar_self"               : true,
-          "non_planar_self"           : true,
-          "avoid_new_self_intersects" : true,
-          "geometric_relation"        : true,
-          "distance_relation"         : true,
-          "homotopy_relation"         : true
-        }`
+var args = `
+{
+  "input"                     : "data/feature_class.json",
+  "output"                    : "output/out_feat_class.json",
+  "constraints"               : "data/feature_class_const.json",
+  "simplification_type"       : "DP",
+  "threshold"                 : 50.0,
+  "minimum_distance"          : 20.0,
+  "non_planar_displacement"   : 10.0,
+  "is_feature_class"          : true,
+  "planar_self"               : true,
+  "non_planar_self"           : true,
+  "avoid_new_self_intersects" : true,
+  "geometric_relation"        : true,
+  "distance_relation"         : true,
+  "homotopy_relation"         : true
+}`
 
 var simplifyExec = "bin/simplify"
 var execDir string
@@ -39,9 +40,7 @@ func init() {
 }
 
 func main() {
-	var argsOpts = encode64(args)
-	fmt.Println(argsOpts)
-	runPlugin(args)
+	runPlugin(encode64(args))
 }
 
 func runPlugin(arg string) {
