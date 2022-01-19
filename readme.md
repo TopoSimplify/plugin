@@ -390,6 +390,14 @@ Observe distance relation (minimum distance) to planar objects serving as constr
 ```text
 distance_relation : false
 ```
+Simplification may result in an output that is too close to planar constraints. In some
+domains, trajectories may have a distance relation
+to polygonal zones due to environmental restrictions such noise, pollution etc. The simplified
+geometries can be constrained to observe some minimum distance relation to planar objects.
+See illustration : 
+<p float="left">
+    <img src="docs/imgs/distance-relation.png" style="width:60%">
+</p>
 
 #### homotopy_relation
 
@@ -398,4 +406,13 @@ Observe homotopic (sidedness) relation to planar objects serving as constraints.
 ```text
 "homotopy_relation" : false
 ```
+Out of context simplification cn change the side relation to planar objects.
+This constraint, if set to `true`, restricts the sidedness of the simplified polyline
+to consistent as the original input.
+The following illustrates change in homotopy due to simplification: 
 
+<p float="left">
+    <img src="docs/imgs/homotopy-1.png" style="width:60%">
+    <img src="docs/imgs/homotopy-2.png" style="width:60%">
+    <img src="docs/imgs/homotopy-3.png" style="width:60%">
+</p>
