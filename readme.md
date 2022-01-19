@@ -421,7 +421,7 @@ The following illustrates change in homotopy due to simplification:
 </p>
 
 
-#GeoJSON to Base 64
+# GeoJSON to Base 64
 The following snippets show how to convert configuration JSON to encoded 
 base 64 string as a command line argument.
 ## In C#
